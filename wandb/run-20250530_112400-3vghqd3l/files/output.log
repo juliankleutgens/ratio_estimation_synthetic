@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 564, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 211, in main
+    src, tgt, extras = load_data()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 173, in load_data
+    return src, tgt, {"edges": edges, "src_form": config.source_form, "tgt_form": config.target}
+AttributeError: 'types.SimpleNamespace' object has no attribute 'target'

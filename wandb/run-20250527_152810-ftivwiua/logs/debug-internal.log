@@ -1,0 +1,15 @@
+{"time":"2025-05-27T15:28:10.898512-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250527_152810-ftivwiua/logs/debug-core.log"}
+{"time":"2025-05-27T15:28:11.142118-04:00","level":"INFO","msg":"created new stream","id":"ftivwiua"}
+{"time":"2025-05-27T15:28:11.142157-04:00","level":"INFO","msg":"stream: started","id":"ftivwiua"}
+{"time":"2025-05-27T15:28:11.142176-04:00","level":"INFO","msg":"handler: started","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:28:11.142354-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:28:11.142426-04:00","level":"INFO","msg":"sender: started","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:28:11.322398-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-27T15:33:03.509274-04:00","level":"INFO","msg":"stream: closing","id":"ftivwiua"}
+{"time":"2025-05-27T15:33:03.509689-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-27T15:33:03.509792-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-27T15:33:03.866115-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-27T15:33:03.99842-04:00","level":"INFO","msg":"handler: closed","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:33:03.998605-04:00","level":"INFO","msg":"sender: closed","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:33:03.999595-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ftivwiua"}
+{"time":"2025-05-27T15:33:03.999693-04:00","level":"INFO","msg":"stream: closed","id":"ftivwiua"}

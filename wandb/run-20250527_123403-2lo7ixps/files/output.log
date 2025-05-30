@@ -1,0 +1,398 @@
+Number of sequences dropped: 0 out of 20000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.7012  0.0751  0.0749  0.0743  0.0746  0.0000   |    0.7000  0.0750  0.0750  0.0750  0.0750  0.0000
+   0.0758  0.7011  0.0743  0.0746  0.0742  0.0000   |    0.0750  0.7000  0.0750  0.0750  0.0750  0.0000
+   0.0754  0.0739  0.7006  0.0741  0.0760  0.0000   |    0.0750  0.0750  0.7000  0.0750  0.0750  0.0000
+   0.0756  0.0743  0.0749  0.7003  0.0749  0.0000   |    0.0750  0.0750  0.0750  0.7000  0.0750  0.0000
+   0.0757  0.0743  0.0762  0.0746  0.6991  0.0000   |    0.0750  0.0750  0.0750  0.0750  0.7000  0.0000
+   0.0000  0.0000  0.0000  0.0000  0.0000  0.0000   |    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
+[Data] P_est error: max 0.0012  ‖·‖₁=0.0036 mean_diag=0.5837
+[Classifier] epoch 1/30, loss=0.0260
+[Classifier] epoch 2/30, loss=0.0038
+[Classifier] epoch 3/30, loss=0.0256
+[Classifier] epoch 4/30, loss=0.0030
+[Classifier] epoch 5/30, loss=0.0242
+[Classifier] epoch 6/30, loss=0.0027
+[Classifier] epoch 7/30, loss=0.0439
+[Classifier] epoch 8/30, loss=0.0027
+[Classifier] epoch 9/30, loss=0.0044
+[Classifier] epoch 10/30, loss=0.0268
+[Classifier] epoch 11/30, loss=0.0599
+[Classifier] epoch 12/30, loss=0.0170
+[Classifier] epoch 13/30, loss=0.0011
+[Classifier] epoch 14/30, loss=0.0027
+[Classifier] epoch 15/30, loss=0.0079
+[Classifier] epoch 16/30, loss=0.0270
+[Classifier] epoch 17/30, loss=0.0177
+[Classifier] epoch 18/30, loss=0.0073
+[Classifier] epoch 19/30, loss=0.0565
+[Classifier] epoch 20/30, loss=0.0356
+[Classifier] epoch 21/30, loss=0.0023
+[Classifier] epoch 22/30, loss=0.0034
+[Classifier] epoch 23/30, loss=0.0168
+[Classifier] epoch 24/30, loss=0.0019
+[Classifier] epoch 25/30, loss=0.0023
+[Classifier] epoch 26/30, loss=0.0207
+[Classifier] epoch 27/30, loss=0.0228
+[Classifier] epoch 28/30, loss=0.0439
+[Classifier] epoch 29/30, loss=0.0014
+[Classifier] epoch 30/30, loss=0.0043
+[Classifier-Val]  loss = 0.0105  acc = 99.71% TP=20000 FP=72 TN=4928 FN=0
+[Time‐Cond Classifier] epoch 1/30, BCE=0.3292
+[Time‐Cond Classifier] epoch 2/30, BCE=0.1808
+[Time‐Cond Classifier] epoch 3/30, BCE=0.1798
+[Time‐Cond Classifier] epoch 4/30, BCE=0.1845
+[Time‐Cond Classifier] epoch 5/30, BCE=0.1801
+[Time‐Cond Classifier] epoch 6/30, BCE=0.1839
+[Time‐Cond Classifier] epoch 7/30, BCE=0.1824
+[Time‐Cond Classifier] epoch 8/30, BCE=0.1812
+[Time‐Cond Classifier] epoch 9/30, BCE=0.1817
+[Time‐Cond Classifier] epoch 10/30, BCE=0.1796
+[Time‐Cond Classifier] epoch 11/30, BCE=0.1848
+[Time‐Cond Classifier] epoch 12/30, BCE=0.1796
+[Time‐Cond Classifier] epoch 13/30, BCE=0.1754
+[Time‐Cond Classifier] epoch 14/30, BCE=0.1827
+[Time‐Cond Classifier] epoch 15/30, BCE=0.1784
+[Time‐Cond Classifier] epoch 16/30, BCE=0.1798
+[Time‐Cond Classifier] epoch 17/30, BCE=0.1844
+[Time‐Cond Classifier] epoch 18/30, BCE=0.1762
+[Time‐Cond Classifier] epoch 19/30, BCE=0.1729
+[Time‐Cond Classifier] epoch 20/30, BCE=0.1789
+[Time‐Cond Classifier] epoch 21/30, BCE=0.1802
+[Time‐Cond Classifier] epoch 22/30, BCE=0.1753
+[Time‐Cond Classifier] epoch 23/30, BCE=0.1760
+[Time‐Cond Classifier] epoch 24/30, BCE=0.1738
+[Time‐Cond Classifier] epoch 25/30, BCE=0.1758
+[Time‐Cond Classifier] epoch 26/30, BCE=0.1706
+[Time‐Cond Classifier] epoch 27/30, BCE=0.1744
+[Time‐Cond Classifier] epoch 28/30, BCE=0.1749
+[Time‐Cond Classifier] epoch 29/30, BCE=0.1734
+[Time‐Cond Classifier] epoch 30/30, BCE=0.1722
+[Time-Dependent Classifier-Val]  loss = 0.0133  acc = 99.64% TP=20000 FP=90 TN=4910 FN=0
+[Denoiser] epoch 1/30 trainCE = 0.7743
+[Denoiser] epoch 2/30 trainCE = 0.6020
+[Denoiser] epoch 3/30 trainCE = 0.6031
+[Denoiser] epoch 4/30 trainCE = 0.5951
+[Denoiser] epoch 5/30 trainCE = 0.5975
+[Denoiser] epoch 6/30 trainCE = 0.5992
+[Denoiser] epoch 7/30 trainCE = 0.5958
+[Denoiser] epoch 8/30 trainCE = 0.5888
+[Denoiser] epoch 9/30 trainCE = 0.5905
+[Denoiser] epoch 10/30 trainCE = 0.6023
+[Denoiser] epoch 11/30 trainCE = 0.5976
+[Denoiser] epoch 12/30 trainCE = 0.5922
+[Denoiser] epoch 13/30 trainCE = 0.5923
+[Denoiser] epoch 14/30 trainCE = 0.6003
+[Denoiser] epoch 15/30 trainCE = 0.5966
+[Denoiser] epoch 16/30 trainCE = 0.5885
+[Denoiser] epoch 17/30 trainCE = 0.5945
+[Denoiser] epoch 18/30 trainCE = 0.5902
+[Denoiser] epoch 19/30 trainCE = 0.5918
+[Denoiser] epoch 20/30 trainCE = 0.5968
+[Denoiser] epoch 21/30 trainCE = 0.5997
+[Denoiser] epoch 22/30 trainCE = 0.6005
+[Denoiser] epoch 23/30 trainCE = 0.5912
+[Denoiser] epoch 24/30 trainCE = 0.5846
+[Denoiser] epoch 25/30 trainCE = 0.5927
+[Denoiser] epoch 26/30 trainCE = 0.5967
+[Denoiser] epoch 27/30 trainCE = 0.5871
+[Denoiser] epoch 28/30 trainCE = 0.5815
+[Denoiser] epoch 29/30 trainCE = 0.5975
+[Denoiser] epoch 30/30 trainCE = 0.6018
+[Ratio‑TD-only-src] epoch 1/1, loss = 15.995514
+[Ratio‑TD] epoch 1/30, loss = 32.539709
+[Ratio‑TD] epoch 2/30, loss = 15.355237
+[Ratio‑TD] epoch 3/30, loss = 16.155465
+[Ratio‑TD] epoch 4/30, loss = 15.475663
+[Ratio‑TD] epoch 5/30, loss = 15.183436
+[Ratio‑TD] epoch 6/30, loss = 15.131754
+[Ratio‑TD] epoch 7/30, loss = 15.058698
+[Ratio‑TD] epoch 8/30, loss = 15.447549
+[Ratio‑TD] epoch 9/30, loss = 15.759498
+[Ratio‑TD] epoch 10/30, loss = 15.019021
+[Ratio‑TD] epoch 11/30, loss = 14.776756
+[Ratio‑TD] epoch 12/30, loss = 15.241703
+[Ratio‑TD] epoch 13/30, loss = 15.519770
+[Ratio‑TD] epoch 14/30, loss = 15.727534
+[Ratio‑TD] epoch 15/30, loss = 14.515045
+[Ratio‑TD] epoch 16/30, loss = 15.166859
+[Ratio‑TD] epoch 17/30, loss = 14.799578
+[Ratio‑TD] epoch 18/30, loss = 15.038438
+[Ratio‑TD] epoch 19/30, loss = 15.167135
+[Ratio‑TD] epoch 20/30, loss = 15.156172
+[Ratio‑TD] epoch 21/30, loss = 15.129589
+[Ratio‑TD] epoch 22/30, loss = 15.476416
+[Ratio‑TD] epoch 23/30, loss = 15.399191
+[Ratio‑TD] epoch 24/30, loss = 15.086875
+[Ratio‑TD] epoch 25/30, loss = 15.196167
+[Ratio‑TD] epoch 26/30, loss = 14.917581
+[Ratio‑TD] epoch 27/30, loss = 14.892385
+[Ratio‑TD] epoch 28/30, loss = 15.201822
+[Ratio‑TD] epoch 29/30, loss = 14.922263
+[Ratio‑TD] epoch 30/30, loss = 15.364007
+[Ratio on t-clf + reconstruction loss] epoch  1/30, MSE = 57.003614
+[Ratio on t-clf + reconstruction loss] epoch  2/30, MSE = 38.078674
+[Ratio on t-clf + reconstruction loss] epoch  3/30, MSE = 38.023282
+[Ratio on t-clf + reconstruction loss] epoch  4/30, MSE = 37.927813
+[Ratio on t-clf + reconstruction loss] epoch  5/30, MSE = 37.386632
+[Ratio on t-clf + reconstruction loss] epoch  6/30, MSE = 36.812464
+[Ratio on t-clf + reconstruction loss] epoch  7/30, MSE = 37.086803
+[Ratio on t-clf + reconstruction loss] epoch  8/30, MSE = 37.123670
+[Ratio on t-clf + reconstruction loss] epoch  9/30, MSE = 36.571578
+[Ratio on t-clf + reconstruction loss] epoch 10/30, MSE = 36.484605
+[Ratio on t-clf + reconstruction loss] epoch 11/30, MSE = 36.694598
+[Ratio on t-clf + reconstruction loss] epoch 12/30, MSE = 36.190655
+[Ratio on t-clf + reconstruction loss] epoch 13/30, MSE = 36.705138
+[Ratio on t-clf + reconstruction loss] epoch 14/30, MSE = 37.212888
+[Ratio on t-clf + reconstruction loss] epoch 15/30, MSE = 36.801279
+[Ratio on t-clf + reconstruction loss] epoch 16/30, MSE = 36.697646
+[Ratio on t-clf + reconstruction loss] epoch 17/30, MSE = 36.357187
+[Ratio on t-clf + reconstruction loss] epoch 18/30, MSE = 36.364750
+[Ratio on t-clf + reconstruction loss] epoch 19/30, MSE = 36.520782
+[Ratio on t-clf + reconstruction loss] epoch 20/30, MSE = 36.817762
+[Ratio on t-clf + reconstruction loss] epoch 21/30, MSE = 36.465448
+[Ratio on t-clf + reconstruction loss] epoch 22/30, MSE = 36.645358
+[Ratio on t-clf + reconstruction loss] epoch 23/30, MSE = 36.394730
+[Ratio on t-clf + reconstruction loss] epoch 24/30, MSE = 36.398466
+[Ratio on t-clf + reconstruction loss] epoch 25/30, MSE = 36.678666
+[Ratio on t-clf + reconstruction loss] epoch 26/30, MSE = 36.675657
+[Ratio on t-clf + reconstruction loss] epoch 27/30, MSE = 36.999482
+[Ratio on t-clf + reconstruction loss] epoch 28/30, MSE = 36.231731
+[Ratio on t-clf + reconstruction loss] epoch 29/30, MSE = 37.078305
+[Ratio on t-clf + reconstruction loss] epoch 30/30, MSE = 36.719920
+[Ratio on t-clf] epoch  1/30, MSE = 18.315114
+[Ratio on t-clf] epoch  2/30, MSE = 1.188840
+[Ratio on t-clf] epoch  3/30, MSE = 0.783722
+[Ratio on t-clf] epoch  4/30, MSE = 0.641039
+[Ratio on t-clf] epoch  5/30, MSE = 0.578386
+[Ratio on t-clf] epoch  6/30, MSE = 0.511420
+[Ratio on t-clf] epoch  7/30, MSE = 0.469380
+[Ratio on t-clf] epoch  8/30, MSE = 0.431476
+[Ratio on t-clf] epoch  9/30, MSE = 0.424167
+[Ratio on t-clf] epoch 10/30, MSE = 0.381024
+[Ratio on t-clf] epoch 11/30, MSE = 0.364932
+[Ratio on t-clf] epoch 12/30, MSE = 0.363731
+[Ratio on t-clf] epoch 13/30, MSE = 0.350823
+[Ratio on t-clf] epoch 14/30, MSE = 0.338402
+[Ratio on t-clf] epoch 15/30, MSE = 0.319283
+[Ratio on t-clf] epoch 16/30, MSE = 0.318439
+[Ratio on t-clf] epoch 17/30, MSE = 0.304818
+[Ratio on t-clf] epoch 18/30, MSE = 0.287852
+[Ratio on t-clf] epoch 19/30, MSE = 0.284331
+[Ratio on t-clf] epoch 20/30, MSE = 0.269906
+[Ratio on t-clf] epoch 21/30, MSE = 0.252489
+[Ratio on t-clf] epoch 22/30, MSE = 0.244982
+[Ratio on t-clf] epoch 23/30, MSE = 0.254980
+[Ratio on t-clf] epoch 24/30, MSE = 0.247586
+[Ratio on t-clf] epoch 25/30, MSE = 0.229800
+[Ratio on t-clf] epoch 26/30, MSE = 0.243372
+[Ratio on t-clf] epoch 27/30, MSE = 0.239849
+[Ratio on t-clf] epoch 28/30, MSE = 0.214365
+[Ratio on t-clf] epoch 29/30, MSE = 0.215019
+[Ratio on t-clf] epoch 30/30, MSE = 0.211922
+[Ratio-Reg] epoch 1/1  L_ratio=2.1056  L_cycle=15.8562  L_consistency=0.0000
+[Vec-Ratio-TD-full] epoch 1/30, MSE = 887.842685
+[Vec-Ratio-TD-full] epoch 2/30, MSE = 4.809124
+[Vec-Ratio-TD-full] epoch 3/30, MSE = 2.398576
+[Vec-Ratio-TD-full] epoch 4/30, MSE = 1.839210
+[Vec-Ratio-TD-full] epoch 5/30, MSE = 1.569836
+[Vec-Ratio-TD-full] epoch 6/30, MSE = 1.413768
+[Vec-Ratio-TD-full] epoch 7/30, MSE = 1.282502
+[Vec-Ratio-TD-full] epoch 8/30, MSE = 1.156025
+[Vec-Ratio-TD-full] epoch 9/30, MSE = 1.079515
+[Vec-Ratio-TD-full] epoch 10/30, MSE = 1.003790
+[Vec-Ratio-TD-full] epoch 11/30, MSE = 0.950797
+[Vec-Ratio-TD-full] epoch 12/30, MSE = 0.923352
+[Vec-Ratio-TD-full] epoch 13/30, MSE = 0.868309
+[Vec-Ratio-TD-full] epoch 14/30, MSE = 0.853039
+[Vec-Ratio-TD-full] epoch 15/30, MSE = 0.809600
+[Vec-Ratio-TD-full] epoch 16/30, MSE = 0.786673
+[Vec-Ratio-TD-full] epoch 17/30, MSE = 0.763461
+[Vec-Ratio-TD-full] epoch 18/30, MSE = 0.744967
+[Vec-Ratio-TD-full] epoch 19/30, MSE = 0.736027
+[Vec-Ratio-TD-full] epoch 20/30, MSE = 0.699961
+[Vec-Ratio-TD-full] epoch 21/30, MSE = 0.682642
+[Vec-Ratio-TD-full] epoch 22/30, MSE = 0.653845
+[Vec-Ratio-TD-full] epoch 23/30, MSE = 0.667123
+[Vec-Ratio-TD-full] epoch 24/30, MSE = 0.629306
+[Vec-Ratio-TD-full] epoch 25/30, MSE = 0.634707
+[Vec-Ratio-TD-full] epoch 26/30, MSE = 0.609113
+[Vec-Ratio-TD-full] epoch 27/30, MSE = 0.612591
+[Vec-Ratio-TD-full] epoch 28/30, MSE = 0.587310
+[Vec-Ratio-TD-full] epoch 29/30, MSE = 0.594717
+[Vec-Ratio-TD-full] epoch 30/30, MSE = 0.567094
+Time taken to train ratio net vector: 620.77 seconds
+[Ratio estimator] ratio net guided src and tgt trained
+
+[Ratio estimator] ratio net scaler on t-classifer trained
+
+[Ratio estimator] ratio net scaler on t-classifer + reconstruction trained
+
+[Ratio estimator] ratio net vector on t-classifer trained
+
+
+[Sampling] gamma=0, type=LRG, ratio_net=no ratio used
+Sampling: 100%|██████████| 10/10 [00:03<00:00,  3.30step/s]
+Sampled sequences (γ=0), type=LRG, ratio_net=no ratio used
+Number of sequences dropped: 62 out of 2048. (3.03%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.5025  0.1308  0.1168  0.1384  0.1116  0.0000   |    0.7000  0.0750  0.0750  0.0750  0.0750  0.0000
+   0.1175  0.5070  0.1223  0.1355  0.1177  0.0000   |    0.0750  0.7000  0.0750  0.0750  0.0750  0.0000
+   0.1118  0.1236  0.5228  0.1313  0.1106  0.0000   |    0.0750  0.0750  0.7000  0.0750  0.0750  0.0000
+   0.1167  0.1225  0.1163  0.5286  0.1159  0.0000   |    0.0750  0.0750  0.0750  0.7000  0.0750  0.0000
+   0.1121  0.1261  0.1200  0.1258  0.5160  0.0000   |    0.0750  0.0750  0.0750  0.0750  0.7000  0.0000
+   0.0000  0.0000  0.0000  0.0000  0.0000  0.0000   |    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
+P error max=0.1975  ‖·‖₁=0.4635 mean_diag=0.4295 (t=3.1s)
+
+[Sampling] gamma=1, type=LRG, ratio_net=ratio net guided src and tgt
+Sampling: 100%|██████████| 10/10 [04:41<00:00, 28.12s/step]
+The mean difference between the mask and token log-ratios is 1.8306399583816528
+The mean difference between the mask and token log-ratios is 1.83864426612854
+The mean difference between the mask and token log-ratios is -0.0008163803140632808
+The mean difference between the mask and token log-ratios is -0.00438715098425746
+The mean difference between the mask and token log-ratios is -0.002159863244742155
+The mean difference between the mask and token log-ratios is 0.0007540792576037347
+The mean difference between the mask and token log-ratios is 0.002205265685915947
+The mean difference between the mask and token log-ratios is 0.00268730241805315
+The mean difference between the mask and token log-ratios is 0.002899644197896123
+The mean difference between the mask and token log-ratios is 0.002964455634355545
+Sampled sequences (γ=1), type=LRG, ratio_net=ratio net guided src and tgt
+Number of sequences dropped: 63 out of 2048. (3.08%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.4362  0.0899  0.0856  0.0958  0.0860  0.2065   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.0983  0.4424  0.0883  0.1090  0.1050  0.1570   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.1045  0.0932  0.4499  0.1084  0.0924  0.1515   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.1012  0.0882  0.0852  0.4503  0.1019  0.1731   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.0902  0.0902  0.0803  0.0932  0.4439  0.2023   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.2114  0.1265  0.1189  0.1623  0.2003  0.1807   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.2193  ‖·‖₁=0.3297 mean_diag=0.4005 (t=281.2s)
+
+[Sampling] gamma=1, type=LRG, ratio_net=ratio net scaler on t-classifer
+Sampling: 100%|██████████| 10/10 [04:58<00:00, 29.84s/step]
+The mean difference between the mask and token log-ratios is 1.2521976232528687
+The mean difference between the mask and token log-ratios is 1.3234764337539673
+The mean difference between the mask and token log-ratios is 1.2282084226608276
+The mean difference between the mask and token log-ratios is 0.07138954848051071
+The mean difference between the mask and token log-ratios is 0.053277138620615005
+The mean difference between the mask and token log-ratios is 0.0554988719522953
+The mean difference between the mask and token log-ratios is 0.06481093168258667
+The mean difference between the mask and token log-ratios is 0.0739707350730896
+The mean difference between the mask and token log-ratios is 0.07918637990951538
+The mean difference between the mask and token log-ratios is 0.08206967264413834
+Sampled sequences (γ=1), type=LRG, ratio_net=ratio net scaler on t-classifer
+Number of sequences dropped: 41 out of 2048. (2.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.4557  0.1039  0.1098  0.0993  0.1078  0.1235   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.1135  0.4589  0.1074  0.1052  0.1181  0.0970   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.1105  0.1019  0.4771  0.1051  0.1094  0.0960   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.1032  0.1082  0.1140  0.4602  0.1120  0.1024   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.0918  0.1057  0.0979  0.1059  0.4792  0.1195   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.2105  0.1534  0.1528  0.1772  0.2158  0.0903   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.3097  ‖·‖₁=0.3833 mean_diag=0.4036 (t=298.4s)
+
+[Sampling] gamma=1, type=LRG, ratio_net=ratio net scaler on t-classifer + reconstruction
+Sampling: 100%|██████████| 10/10 [05:05<00:00, 30.54s/step]
+The mean difference between the mask and token log-ratios is 1.0579878091812134
+The mean difference between the mask and token log-ratios is 1.086728811264038
+The mean difference between the mask and token log-ratios is 0.9683573842048645
+The mean difference between the mask and token log-ratios is 0.8336079120635986
+The mean difference between the mask and token log-ratios is 1.0759767293930054
+The mean difference between the mask and token log-ratios is 1.0517611503601074
+The mean difference between the mask and token log-ratios is 0.9136305451393127
+The mean difference between the mask and token log-ratios is 0.860409140586853
+The mean difference between the mask and token log-ratios is 0.8492039442062378
+The mean difference between the mask and token log-ratios is 0.8567184805870056
+Sampled sequences (γ=1), type=LRG, ratio_net=ratio net scaler on t-classifer + reconstruction
+Number of sequences dropped: 42 out of 2048. (2.05%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.4203  0.1845  0.1284  0.1287  0.1186  0.0195   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.0873  0.5682  0.1093  0.1065  0.1094  0.0193   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.0959  0.1612  0.4764  0.1237  0.1223  0.0205   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.0934  0.1681  0.1264  0.4652  0.1250  0.0220   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.0832  0.1562  0.1157  0.1107  0.5134  0.0209   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.1129  0.2929  0.1842  0.1969  0.2071  0.0059   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.3941  ‖·‖₁=0.5639 mean_diag=0.4082 (t=305.4s)
+
+[Sampling] gamma=1, type=LRG, ratio_net=ratio net vector on t-classifer
+Sampling: 100%|██████████| 10/10 [00:44<00:00,  4.40s/step]
+The mean difference between the mask and token log-ratios is 1.1576439142227173
+The mean difference between the mask and token log-ratios is 1.1895601749420166
+The mean difference between the mask and token log-ratios is 1.120286226272583
+The mean difference between the mask and token log-ratios is 0.18045742809772491
+The mean difference between the mask and token log-ratios is 0.008862446062266827
+The mean difference between the mask and token log-ratios is -0.06323219835758209
+The mean difference between the mask and token log-ratios is -0.0487857349216938
+The mean difference between the mask and token log-ratios is -0.01511953491717577
+The mean difference between the mask and token log-ratios is 0.015791691839694977
+The mean difference between the mask and token log-ratios is 0.046203117817640305
+Sampled sequences (γ=1), type=LRG, ratio_net=ratio net vector on t-classifer
+Number of sequences dropped: 71 out of 2048. (3.47%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.4956  0.0848  0.0966  0.1132  0.1198  0.0900   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.1443  0.3972  0.1017  0.1305  0.1506  0.0756   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.1371  0.0871  0.4435  0.1244  0.1375  0.0703   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.1263  0.0846  0.0995  0.4840  0.1224  0.0833   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.1204  0.0845  0.0960  0.1137  0.5002  0.0852   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.2466  0.1164  0.1256  0.1867  0.2488  0.0759   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.3241  ‖·‖₁=0.4328 mean_diag=0.3994 (t=44.0s)
+
+[Sampling] gamma=1, type=PLG, ratio_net=ratio net guided src and tgt
+Sampling: 100%|██████████| 10/10 [04:36<00:00, 27.69s/step]
+The mean difference between the mask and token log-ratios is 1.8306399583816528
+The mean difference between the mask and token log-ratios is 1.83864426612854
+The mean difference between the mask and token log-ratios is 1.8525015115737915
+The mean difference between the mask and token log-ratios is 2.1348507404327393
+The mean difference between the mask and token log-ratios is 2.3585562705993652
+The mean difference between the mask and token log-ratios is 2.2065460681915283
+The mean difference between the mask and token log-ratios is 2.1008212566375732
+The mean difference between the mask and token log-ratios is 2.0776424407958984
+The mean difference between the mask and token log-ratios is 2.072169303894043
+The mean difference between the mask and token log-ratios is 2.070470094680786
+Sampled sequences (γ=1), type=PLG, ratio_net=ratio net guided src and tgt
+Number of sequences dropped: 76 out of 2048. (3.71%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.4398  0.1546  0.1311  0.1442  0.1223  0.0080   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.1049  0.5110  0.1234  0.1328  0.1231  0.0049   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.0976  0.1429  0.4885  0.1365  0.1285  0.0060   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.1024  0.1362  0.1337  0.4982  0.1225  0.0069   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.0939  0.1462  0.1197  0.1286  0.5037  0.0079   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.1649  0.1885  0.2251  0.1937  0.2277  0.0000   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.4000  ‖·‖₁=0.5540 mean_diag=0.4069 (t=276.9s)
+
+[Sampling] gamma=1, type=PLG, ratio_net=ratio net scaler on t-classifer
+Sampling: 100%|██████████| 10/10 [03:31<00:00, 21.14s/step]
+The mean difference between the mask and token log-ratios is 1.2521976232528687
+The mean difference between the mask and token log-ratios is 1.3234764337539673
+The mean difference between the mask and token log-ratios is 1.4002655744552612
+The mean difference between the mask and token log-ratios is 1.6322005987167358
+The mean difference between the mask and token log-ratios is 2.085714340209961
+The mean difference between the mask and token log-ratios is 2.4477128982543945
+The mean difference between the mask and token log-ratios is 2.6825780868530273
+The mean difference between the mask and token log-ratios is 2.836012840270996
+The mean difference between the mask and token log-ratios is 2.9638755321502686
+The mean difference between the mask and token log-ratios is 3.074220657348633
+Sampled sequences (γ=1), type=PLG, ratio_net=ratio net scaler on t-classifer
+Number of sequences dropped: 110 out of 2048. (5.37%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.5011  0.1233  0.1309  0.1357  0.1084  0.0006   |    0.4000  0.1200  0.1200  0.1200  0.1200  0.1200
+   0.1329  0.4833  0.1267  0.1324  0.1237  0.0011   |    0.1200  0.4000  0.1200  0.1200  0.1200  0.1200
+   0.1178  0.1219  0.5095  0.1370  0.1134  0.0005   |    0.1200  0.1200  0.4000  0.1200  0.1200  0.1200
+   0.1213  0.1145  0.1324  0.5138  0.1170  0.0010   |    0.1200  0.1200  0.1200  0.4000  0.1200  0.1200
+   0.1102  0.1218  0.1276  0.1323  0.5074  0.0007   |    0.1200  0.1200  0.1200  0.1200  0.4000  0.1200
+   0.1707  0.1220  0.1951  0.4146  0.0976  0.0000   |    0.1200  0.1200  0.1200  0.1200  0.1200  0.4000
+P error max=0.4000  ‖·‖₁=0.6180 mean_diag=0.4192 (t=211.4s)
+
+[Sampling] gamma=1, type=PLG, ratio_net=ratio net scaler on t-classifer + reconstruction
+Sampling:  40%|████      | 4/10 [01:24<02:07, 21.19s/step]
+The mean difference between the mask and token log-ratios is 1.0579878091812134
+The mean difference between the mask and token log-ratios is 1.086728811264038
+The mean difference between the mask and token log-ratios is 0.9882482886314392
+The mean difference between the mask and token log-ratios is 0.8551912307739258

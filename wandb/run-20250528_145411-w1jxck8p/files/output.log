@@ -1,0 +1,142 @@
+Number of sequences dropped: 0 out of 10000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.0199  0.0894  0.0086  0.5122  0.3699  0.0000   |    0.0201  0.0881  0.0083  0.5128  0.3706  0.0000
+   0.2235  0.1529  0.3530  0.1127  0.1580  0.0000   |    0.2238  0.1524  0.3518  0.1149  0.1572  0.0000
+   0.2974  0.1550  0.0380  0.0372  0.4723  0.0000   |    0.2964  0.1552  0.0379  0.0362  0.4743  0.0000
+   0.5264  0.2177  0.0779  0.1702  0.0078  0.0000   |    0.5295  0.2161  0.0763  0.1694  0.0087  0.0000
+   0.2229  0.2147  0.4215  0.1255  0.0154  0.0000   |    0.2216  0.2159  0.4208  0.1263  0.0155  0.0000
+   0.0000  0.0000  0.0000  0.0000  0.0000  0.0000   |    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
+[Data] P_est error: max 0.0030  ‖·‖₁=0.0060 mean_diag=0.0661
+Number of sequences dropped: 0 out of 1000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.0272  0.7276  0.0023  0.0036  0.2044  0.0349   |    0.0274  0.7161  0.0024  0.0041  0.2174  0.0327
+   0.1126  0.0000  0.4498  0.1250  0.0002  0.3124   |    0.1199  0.0000  0.4424  0.1208  0.0003  0.3166
+   0.0677  0.3609  0.1491  0.0079  0.0051  0.4094   |    0.0627  0.3569  0.1528  0.0080  0.0046  0.4150
+   0.1819  0.0060  0.5257  0.0009  0.0469  0.2385   |    0.1780  0.0047  0.5321  0.0010  0.0469  0.2374
+   0.0733  0.0528  0.0842  0.1165  0.1693  0.5039   |    0.0753  0.0548  0.0845  0.1147  0.1743  0.4965
+   0.0000  0.0691  0.0678  0.4311  0.4168  0.0152   |    0.0000  0.0708  0.0682  0.4296  0.4150  0.0165
+[Data] P_est_tgt error: max 0.0130  ‖·‖₁=0.0264 mean_diag=0.0603
+[Classifier] epoch 1/30, loss=0.0060
+[Classifier] epoch 2/30, loss=0.0010
+[Classifier] epoch 3/30, loss=0.0008
+[Classifier] epoch 4/30, loss=0.0006
+[Classifier] epoch 5/30, loss=0.0005
+[Classifier] epoch 6/30, loss=0.0005
+[Classifier] epoch 7/30, loss=0.0004
+[Classifier] epoch 8/30, loss=0.0003
+[Classifier] epoch 9/30, loss=0.0003
+[Classifier] epoch 10/30, loss=0.0003
+[Classifier] epoch 11/30, loss=0.0002
+[Classifier] epoch 12/30, loss=0.0002
+[Classifier] epoch 13/30, loss=0.0002
+[Classifier] epoch 14/30, loss=0.0002
+[Classifier] epoch 15/30, loss=0.0002
+[Classifier] epoch 16/30, loss=0.0002
+[Classifier] epoch 17/30, loss=0.0002
+[Classifier] epoch 18/30, loss=0.0002
+[Classifier] epoch 19/30, loss=0.0002
+[Classifier] epoch 20/30, loss=0.0002
+[Classifier] epoch 21/30, loss=0.0002
+[Classifier] epoch 22/30, loss=0.0002
+[Classifier] epoch 23/30, loss=0.0002
+[Classifier] epoch 24/30, loss=0.0002
+[Classifier] epoch 25/30, loss=0.0002
+[Classifier] epoch 26/30, loss=0.0002
+[Classifier] epoch 27/30, loss=0.0002
+[Classifier] epoch 28/30, loss=0.0002
+[Classifier] epoch 29/30, loss=0.0001
+[Classifier] epoch 30/30, loss=0.0001
+[Classifier-Val]  loss = 0.0001  acc = 100.00% TP=10000 FP=0 TN=1000 FN=0
+[Time‐Cond Classifier] epoch 1/30, BCE=0.4631
+[Time‐Cond Classifier] epoch 2/30, BCE=0.1105
+[Time‐Cond Classifier] epoch 3/30, BCE=0.0852
+[Time‐Cond Classifier] epoch 4/30, BCE=0.0843
+[Time‐Cond Classifier] epoch 5/30, BCE=0.0858
+[Time‐Cond Classifier] epoch 6/30, BCE=0.0887
+[Time‐Cond Classifier] epoch 7/30, BCE=0.0799
+[Time‐Cond Classifier] epoch 8/30, BCE=0.0964
+[Time‐Cond Classifier] epoch 9/30, BCE=0.0871
+[Time‐Cond Classifier] epoch 10/30, BCE=0.0862
+[Time‐Cond Classifier] epoch 11/30, BCE=0.0834
+[Time‐Cond Classifier] epoch 12/30, BCE=0.0867
+[Time‐Cond Classifier] epoch 13/30, BCE=0.0854
+[Time‐Cond Classifier] epoch 14/30, BCE=0.0860
+[Time‐Cond Classifier] epoch 15/30, BCE=0.0881
+[Time‐Cond Classifier] epoch 16/30, BCE=0.0899
+[Time‐Cond Classifier] epoch 17/30, BCE=0.0837
+[Time‐Cond Classifier] epoch 18/30, BCE=0.0863
+[Time‐Cond Classifier] epoch 19/30, BCE=0.0870
+[Time‐Cond Classifier] epoch 20/30, BCE=0.0816
+[Time‐Cond Classifier] epoch 21/30, BCE=0.0926
+[Time‐Cond Classifier] epoch 22/30, BCE=0.0878
+[Time‐Cond Classifier] epoch 23/30, BCE=0.0903
+[Time‐Cond Classifier] epoch 24/30, BCE=0.0896
+[Time‐Cond Classifier] epoch 25/30, BCE=0.0860
+[Time‐Cond Classifier] epoch 26/30, BCE=0.0920
+[Time‐Cond Classifier] epoch 27/30, BCE=0.0825
+[Time‐Cond Classifier] epoch 28/30, BCE=0.0849
+[Time‐Cond Classifier] epoch 29/30, BCE=0.0857
+[Time‐Cond Classifier] epoch 30/30, BCE=0.0858
+[Time-Dependent Classifier-Val]  loss = 0.0000  acc = 100.00% TP=10000 FP=0 TN=1000 FN=0
+[Denoiser] epoch 1/20 trainCE = 0.9454
+[Denoiser] epoch 2/20 trainCE = 0.6566
+[Denoiser] epoch 3/20 trainCE = 0.6389
+[Denoiser] epoch 4/20 trainCE = 0.6423
+[Denoiser] epoch 5/20 trainCE = 0.6293
+[Denoiser] epoch 6/20 trainCE = 0.6336
+[Denoiser] epoch 7/20 trainCE = 0.6386
+[Denoiser] epoch 8/20 trainCE = 0.6425
+[Denoiser] epoch 9/20 trainCE = 0.6277
+[Denoiser] epoch 10/20 trainCE = 0.6300
+[Denoiser] epoch 11/20 trainCE = 0.6356
+[Denoiser] epoch 12/20 trainCE = 0.6239
+[Denoiser] epoch 13/20 trainCE = 0.6531
+[Denoiser] epoch 14/20 trainCE = 0.6231
+[Denoiser] epoch 15/20 trainCE = 0.6389
+[Denoiser] epoch 16/20 trainCE = 0.6338
+[Denoiser] epoch 17/20 trainCE = 0.6331
+[Denoiser] epoch 18/20 trainCE = 0.6451
+[Denoiser] epoch 19/20 trainCE = 0.6201
+[Denoiser] epoch 20/20 trainCE = 0.6370
+[Ratio‑TD-only-src] epoch 1/1, loss = 44.303583
+[Ratio‑TD] epoch 1/30, loss = 52.802355
+[Ratio‑TD] epoch 2/30, loss = 14.712736
+[Ratio‑TD] epoch 3/30, loss = 7.214193
+[Ratio‑TD] epoch 4/30, loss = 6.537075
+[Ratio‑TD] epoch 5/30, loss = 6.544636
+[Ratio‑TD] epoch 6/30, loss = 6.792657
+[Ratio‑TD] epoch 7/30, loss = 7.410822
+[Ratio‑TD] epoch 8/30, loss = 7.758773
+[Ratio‑TD] epoch 9/30, loss = 7.000168
+[Ratio‑TD] epoch 10/30, loss = 7.461496
+[Ratio‑TD] epoch 11/30, loss = 6.903088
+[Ratio‑TD] epoch 12/30, loss = 7.272660
+[Ratio‑TD] epoch 13/30, loss = 7.093681
+[Ratio‑TD] epoch 14/30, loss = 7.410195
+[Ratio‑TD] epoch 15/30, loss = 6.461024
+[Ratio‑TD] epoch 16/30, loss = 7.369679
+[Ratio‑TD] epoch 17/30, loss = 7.053437
+[Ratio‑TD] epoch 18/30, loss = 6.876716
+[Ratio‑TD] epoch 19/30, loss = 7.483509
+[Ratio‑TD] epoch 20/30, loss = 6.453219
+[Ratio‑TD] epoch 21/30, loss = 7.740356
+[Ratio‑TD] epoch 22/30, loss = 7.153310
+[Ratio‑TD] epoch 23/30, loss = 7.313511
+[Ratio‑TD] epoch 24/30, loss = 7.499643
+[Ratio‑TD] epoch 25/30, loss = 7.610145
+[Ratio‑TD] epoch 26/30, loss = 7.150010
+[Ratio‑TD] epoch 27/30, loss = 7.191400
+[Ratio‑TD] epoch 28/30, loss = 6.861228
+[Ratio‑TD] epoch 29/30, loss = 7.217702
+[Ratio‑TD] epoch 30/30, loss = 6.644120
+[Ratio on t-clf] epoch  1/30, MSE = 37.458131
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 533, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 330, in main
+    ratio_net_guided_only_time = ratio_trained_on_time_dependent_classifier(
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/training.py", line 970, in ratio_trained_on_time_dependent_classifier
+    wandb.log({f"{print_statement}/train_loss": epoch_loss/len(loader.dataset), "reconstruction_loss": loss_reconstruction.item(),
+AttributeError: 'float' object has no attribute 'item'

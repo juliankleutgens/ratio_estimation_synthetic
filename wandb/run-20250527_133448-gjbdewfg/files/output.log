@@ -1,0 +1,106 @@
+Number of sequences dropped: 0 out of 10000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.7012  0.0741  0.0757  0.0744  0.0745  0.0000   |    0.7000  0.0750  0.0750  0.0750  0.0750  0.0000
+   0.0755  0.7016  0.0741  0.0741  0.0748  0.0000   |    0.0750  0.7000  0.0750  0.0750  0.0750  0.0000
+   0.0748  0.0733  0.7011  0.0741  0.0767  0.0000   |    0.0750  0.0750  0.7000  0.0750  0.0750  0.0000
+   0.0748  0.0764  0.0758  0.6984  0.0746  0.0000   |    0.0750  0.0750  0.0750  0.7000  0.0750  0.0000
+   0.0750  0.0742  0.0762  0.0752  0.6994  0.0000   |    0.0750  0.0750  0.0750  0.0750  0.7000  0.0000
+   0.0000  0.0000  0.0000  0.0000  0.0000  0.0000   |    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
+[Data] P_est error: max 0.0017  ‖·‖₁=0.0049 mean_diag=0.5836
+[Classifier] epoch 1/3, loss=0.0245
+[Classifier] epoch 2/3, loss=0.0020
+[Classifier] epoch 3/3, loss=0.0018
+[Classifier-Val]  loss = 0.0117  acc = 99.85% TP=10000 FP=17 TN=983 FN=0
+[Ratio‑TD] epoch 1/3, loss = 23.769630
+[Ratio‑TD] epoch 2/3, loss = 8.060531
+[Ratio‑TD] epoch 3/3, loss = 4.157649
+
+[Denoiser] epoch 1/3 trainCE = 0.9162
+[Denoiser] epoch 2/3 trainCE = 0.6295
+[Denoiser] epoch 3/3 trainCE = 0.5969
+
+[Sampling] gamma=0
+
+Denoising trajectory for sample 0 (length 30, 20 steps):
+----------------------------------------
+00: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+01: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+02: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+03: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+04: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+05: □ □ □ □ □ □ □ □ □ C □ □ A □ □ □ □ E □ □ □ □ □ □ □ □ □ □ □ □
+06: □ □ D □ D □ □ □ □ C □ □ A A □ □ □ E □ □ □ □ □ □ E □ □ □ □ □
+07: D □ D □ D □ □ C □ C □ □ A A □ □ □ E □ □ □ E □ □ E □ □ E □ E
+08: D D D □ D □ □ C □ C C D A A □ □ □ E □ □ □ E □ □ E □ □ E □ E
+09: D D D □ D □ □ C C C C D A A E □ □ E □ E E E E □ E □ E E □ E
+10: D D D D D C □ C C C C D A A E E E E E E E E E E E E E E E E
+11: D D D D D C □ C C C C D A A E E E E E E E E E E E E E E E E
+12: D D D D D C □ C C C C D A A E E E E E E E E E E E E E E E E
+13: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+14: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+15: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+16: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+17: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+18: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+19: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+20: D D D D D C C C C C C D A A E E E E E E E E E E E E E E E E
+Sampling: 100%|██████████| 20/20 [00:05<00:00,  3.94step/s]
+Sampled sequences (γ=0), type=PLG
+Number of sequences dropped: 82 out of 2048. (4.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.5085  0.1372  0.1156  0.1172  0.1213  0.0002   |    0.7000  0.0750  0.0750  0.0750  0.0750  0.0000
+   0.0950  0.6072  0.1005  0.1042  0.0930  0.0001   |    0.0750  0.7000  0.0750  0.0750  0.0750  0.0000
+   0.0970  0.1208  0.5563  0.1168  0.1086  0.0004   |    0.0750  0.0750  0.7000  0.0750  0.0750  0.0000
+   0.1098  0.1329  0.1177  0.5319  0.1075  0.0002   |    0.0750  0.0750  0.0750  0.7000  0.0750  0.0000
+   0.1080  0.1209  0.1107  0.1061  0.5542  0.0002   |    0.0750  0.0750  0.0750  0.0750  0.7000  0.0000
+   0.1333  0.2667  0.4000  0.1333  0.0667  0.0000   |    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
+P error max=0.4000  ‖·‖₁=0.6454 mean_diag=0.4597 (t=5.2s)
+
+[Sampling] gamma=0.5
+The mean difference between the mask and token log-ratios is 1.731339931488037
+The mean difference between the mask and token log-ratios is 1.7335567474365234
+The mean difference between the mask and token log-ratios is 1.7354035377502441
+The mean difference between the mask and token log-ratios is 1.73687744140625
+The mean difference between the mask and token log-ratios is 1.7416493892669678
+The mean difference between the mask and token log-ratios is 1.938063144683838
+The mean difference between the mask and token log-ratios is 1.9933860301971436
+The mean difference between the mask and token log-ratios is 2.0461556911468506
+The mean difference between the mask and token log-ratios is 2.093197822570801
+The mean difference between the mask and token log-ratios is 1.6097569465637207
+The mean difference between the mask and token log-ratios is 1.6185173988342285
+The mean difference between the mask and token log-ratios is 1.3651288747787476
+The mean difference between the mask and token log-ratios is 1.368287444114685
+The mean difference between the mask and token log-ratios is 1.368013858795166
+The mean difference between the mask and token log-ratios is 1.3663480281829834
+The mean difference between the mask and token log-ratios is 1.3643139600753784
+The mean difference between the mask and token log-ratios is 1.3612488508224487
+The mean difference between the mask and token log-ratios is 1.3578369617462158
+The mean difference between the mask and token log-ratios is 1.3541135787963867
+The mean difference between the mask and token log-ratios is 1.3509927988052368
+
+Denoising trajectory for sample 0 (length 30, 20 steps):
+----------------------------------------
+00: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+01: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+02: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+03: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+04: □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+05: □ □ □ □ □ □ □ E □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+06: □ □ □ □ □ □ □ E B □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □ □
+07: E □ □ □ □ □ □ E B □ □ □ □ B A □ □ □ □ □ □ B □ □ □ E □ E □ □
+08: E D □ □ □ E □ E B E □ B □ B A E □ B C □ □ B □ □ □ E □ E □ C
+09: E D □ □ E E F E B E D B B B A E B B C □ B B A □ □ E □ E □ C
+10: E D □ A E E F E B E D B B B A E B B C □ B B A A □ E E E □ C
+11: E D □ A E E F E B E D B B B A E B B C □ B B A A □ E E E □ C
+12: E D □ A E E F E B E D B B B A E B B C B B B A A A E E E E C
+13: E D □ A E E F E B E D B B B A E B B C B B B A A A E E E E C
+14: E D □ A E E F E B E D B B B A E B B C B B B A A A E E E E C
+15: E D □ A E E F E B E D B B B A E B B C B B B A A A E E E E C
+16: E D □ A E E F E B E D B B B A E B B C B B B A A A E E E E C
+17: E D D A E E F E B E D B B B A E B B C B B B A A A E E E E C
+18: E D D A E E F E B E D B B B A E B B C B B B A A A E E E E C
+19: E D D A E E F E B E D B B B A E B B C B B B A A A E E E E C
+20: E D D A E E F E B E D B B B A E B B C B B B A A A E E E E C
+Sampling:   0%|          | 0/20 [00:00<?, ?step/s]

@@ -1,0 +1,7 @@
+{"time":"2025-05-28T15:07:37.138781-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250528_150737-pyme6zfv/logs/debug-core.log"}
+{"time":"2025-05-28T15:07:37.364864-04:00","level":"INFO","msg":"created new stream","id":"pyme6zfv"}
+{"time":"2025-05-28T15:07:37.364903-04:00","level":"INFO","msg":"stream: started","id":"pyme6zfv"}
+{"time":"2025-05-28T15:07:37.364917-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"pyme6zfv"}
+{"time":"2025-05-28T15:07:37.364945-04:00","level":"INFO","msg":"handler: started","stream_id":"pyme6zfv"}
+{"time":"2025-05-28T15:07:37.364938-04:00","level":"INFO","msg":"sender: started","stream_id":"pyme6zfv"}
+{"time":"2025-05-28T15:07:37.50166-04:00","level":"INFO","msg":"Starting system monitor"}

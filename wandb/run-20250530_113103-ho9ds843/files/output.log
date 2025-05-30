@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1535, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 564, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 212, in main
+    evaluate_raw_data(src, tgt, extras)
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 192, in evaluate_raw_data
+    plot_iid_gmm_points(tgt, edges, title=f"Target samples n = {config.number_of_target_samples}")
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/plot_function.py", line 419, in plot_iid_gmm_points
+    assert seqs.size(1) == 2, "Only 2‑D supported"
+AssertionError: Only 2‑D supported

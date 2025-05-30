@@ -1,0 +1,7 @@
+{"time":"2025-05-30T11:51:14.819059-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250530_115114-xi365kt2/logs/debug-core.log"}
+{"time":"2025-05-30T11:51:15.028495-04:00","level":"INFO","msg":"created new stream","id":"xi365kt2"}
+{"time":"2025-05-30T11:51:15.028537-04:00","level":"INFO","msg":"stream: started","id":"xi365kt2"}
+{"time":"2025-05-30T11:51:15.028546-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"xi365kt2"}
+{"time":"2025-05-30T11:51:15.028557-04:00","level":"INFO","msg":"handler: started","stream_id":"xi365kt2"}
+{"time":"2025-05-30T11:51:15.02856-04:00","level":"INFO","msg":"sender: started","stream_id":"xi365kt2"}
+{"time":"2025-05-30T11:51:15.202422-04:00","level":"INFO","msg":"Starting system monitor"}

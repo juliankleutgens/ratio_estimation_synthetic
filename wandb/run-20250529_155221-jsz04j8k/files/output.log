@@ -1,0 +1,183 @@
+Number of sequences dropped: 0 out of 10000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.2464  0.1746  0.0893  0.0432  0.4464   |    0.2436  0.1741  0.0888  0.0432  0.4503
+   0.2254  0.0541  0.1680  0.2251  0.3274   |    0.2243  0.0529  0.1653  0.2273  0.3302
+   0.2072  0.2095  0.1735  0.2989  0.1110   |    0.2061  0.2090  0.1724  0.3030  0.1096
+   0.1647  0.1401  0.2304  0.3522  0.1126   |    0.1660  0.1403  0.2319  0.3487  0.1130
+   0.1153  0.1382  0.3181  0.3444  0.0840   |    0.1136  0.1394  0.3235  0.3387  0.0848
+P error max=0.0058  µ_diff=0.0019
+Number of sequences dropped: 0 out of 1000. (0.00%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.1937  0.2030  0.3781  0.1591  0.0661   |    0.1987  0.1973  0.3629  0.1680  0.0730
+   0.1830  0.2089  0.1487  0.2029  0.2565   |    0.1780  0.1975  0.1497  0.2103  0.2645
+   0.1652  0.1240  0.2471  0.2471  0.2167   |    0.1518  0.1309  0.2279  0.2664  0.2229
+   0.2137  0.1249  0.2381  0.1835  0.2398   |    0.1939  0.1265  0.2568  0.1878  0.2350
+   0.3601  0.2908  0.1619  0.1580  0.0291   |    0.3480  0.2954  0.1623  0.1614  0.0328
+P error max=0.0198  µ_diff=0.0085
+[Classifier] epoch 1/30, loss=0.3453
+[Classifier] epoch 2/30, loss=0.2265
+[Classifier] epoch 3/30, loss=0.2852
+[Classifier] epoch 4/30, loss=0.3051
+[Classifier] epoch 5/30, loss=0.2548
+[Classifier] epoch 6/30, loss=0.2967
+[Classifier] epoch 7/30, loss=0.2604
+[Classifier] epoch 8/30, loss=0.1491
+[Classifier] epoch 9/30, loss=0.2195
+[Classifier] epoch 10/30, loss=0.1734
+[Classifier] epoch 11/30, loss=0.1558
+[Classifier] epoch 12/30, loss=0.1892
+[Classifier] epoch 13/30, loss=0.1926
+[Classifier] epoch 14/30, loss=0.1993
+[Classifier] epoch 15/30, loss=0.2002
+[Classifier] epoch 16/30, loss=0.1493
+[Classifier] epoch 17/30, loss=0.1127
+[Classifier] epoch 18/30, loss=0.1189
+[Classifier] epoch 19/30, loss=0.1582
+[Classifier] epoch 20/30, loss=0.1355
+[Classifier] epoch 21/30, loss=0.1445
+[Classifier] epoch 22/30, loss=0.1126
+[Classifier] epoch 23/30, loss=0.1557
+[Classifier] epoch 24/30, loss=0.1467
+[Classifier] epoch 25/30, loss=0.1021
+[Classifier] epoch 26/30, loss=0.1540
+[Classifier] epoch 27/30, loss=0.1151
+[Classifier] epoch 28/30, loss=0.2160
+[Classifier] epoch 29/30, loss=0.1101
+[Classifier] epoch 30/30, loss=0.1389
+[Classifier-Val]  loss = 0.1154  acc = 95.79% TP=9880 FP=343 TN=657 FN=120
+[Time‐Cond Classifier] epoch 1/30, BCE=0.3849
+[Time‐Cond Classifier] epoch 2/30, BCE=0.2937
+[Time‐Cond Classifier] epoch 3/30, BCE=0.2907
+[Time‐Cond Classifier] epoch 4/30, BCE=0.2874
+[Time‐Cond Classifier] epoch 5/30, BCE=0.2844
+[Time‐Cond Classifier] epoch 6/30, BCE=0.2841
+[Time‐Cond Classifier] epoch 7/30, BCE=0.2823
+[Time‐Cond Classifier] epoch 8/30, BCE=0.2767
+[Time‐Cond Classifier] epoch 9/30, BCE=0.2709
+[Time‐Cond Classifier] epoch 10/30, BCE=0.2635
+[Time‐Cond Classifier] epoch 11/30, BCE=0.2552
+[Time‐Cond Classifier] epoch 12/30, BCE=0.2437
+[Time‐Cond Classifier] epoch 13/30, BCE=0.2402
+[Time‐Cond Classifier] epoch 14/30, BCE=0.2356
+[Time‐Cond Classifier] epoch 15/30, BCE=0.2309
+[Time‐Cond Classifier] epoch 16/30, BCE=0.2307
+[Time‐Cond Classifier] epoch 17/30, BCE=0.2199
+[Time‐Cond Classifier] epoch 18/30, BCE=0.2200
+[Time‐Cond Classifier] epoch 19/30, BCE=0.2262
+[Time‐Cond Classifier] epoch 20/30, BCE=0.2217
+[Time‐Cond Classifier] epoch 21/30, BCE=0.2232
+[Time‐Cond Classifier] epoch 22/30, BCE=0.2199
+[Time‐Cond Classifier] epoch 23/30, BCE=0.2203
+[Time‐Cond Classifier] epoch 24/30, BCE=0.2141
+[Time‐Cond Classifier] epoch 25/30, BCE=0.2182
+[Time‐Cond Classifier] epoch 26/30, BCE=0.2194
+[Time‐Cond Classifier] epoch 27/30, BCE=0.2172
+[Time‐Cond Classifier] epoch 28/30, BCE=0.2178
+[Time‐Cond Classifier] epoch 29/30, BCE=0.2225
+[Time‐Cond Classifier] epoch 30/30, BCE=0.2192
+[Time-Dependent Classifier-Val]  loss = 0.1216  acc = 95.29% TP=9792 FP=310 TN=690 FN=208
+[Denoiser] epoch 1/20 trainCE = 0.9196
+[Denoiser] epoch 2/20 trainCE = 0.6590
+[Denoiser] epoch 3/20 trainCE = 0.6584
+[Denoiser] epoch 4/20 trainCE = 0.6612
+[Denoiser] epoch 5/20 trainCE = 0.6450
+[Denoiser] epoch 6/20 trainCE = 0.6524
+[Denoiser] epoch 7/20 trainCE = 0.6553
+[Denoiser] epoch 8/20 trainCE = 0.6616
+[Denoiser] epoch 9/20 trainCE = 0.6460
+[Denoiser] epoch 10/20 trainCE = 0.6504
+[Denoiser] epoch 11/20 trainCE = 0.6583
+[Denoiser] epoch 12/20 trainCE = 0.6439
+[Denoiser] epoch 13/20 trainCE = 0.6751
+[Denoiser] epoch 14/20 trainCE = 0.6476
+[Denoiser] epoch 15/20 trainCE = 0.6612
+[Denoiser] epoch 16/20 trainCE = 0.6541
+[Denoiser] epoch 17/20 trainCE = 0.6567
+[Denoiser] epoch 18/20 trainCE = 0.6681
+[Denoiser] epoch 19/20 trainCE = 0.6427
+[Denoiser] epoch 20/20 trainCE = 0.6583
+[Ratio‑TD-only-src] epoch 1/1, loss = 15.125895
+[Ratio‑TD] epoch 1/1, loss = 14.039541
+[Ratio on t-clf] epoch  1/1, MSE = 8.950353
+[Ratio on t-clf + clean ratio] epoch  1/1, MSE = 12.749698
+[Ratio-Reg] epoch 1/1  L_ratio=6.1809  L_cycle=17.2258  L_consistency=0.0000
+[Vec-Ratio clf:0 and ratio:1] epoch 1/1, MSE = 1975.501044
+Time taken to train ratio net vector: 2.38 seconds
+[Vec-Ratio clf:1 and ratio:0] epoch 1/30, MSE = 2569.892303
+[Vec-Ratio clf:1 and ratio:0] epoch 2/30, MSE = 142.876163
+[Vec-Ratio clf:1 and ratio:0] epoch 3/30, MSE = 10.466222
+[Vec-Ratio clf:1 and ratio:0] epoch 4/30, MSE = 6.065883
+[Vec-Ratio clf:1 and ratio:0] epoch 5/30, MSE = 5.472998
+[Vec-Ratio clf:1 and ratio:0] epoch 6/30, MSE = 5.154889
+[Vec-Ratio clf:1 and ratio:0] epoch 7/30, MSE = 4.901776
+[Vec-Ratio clf:1 and ratio:0] epoch 8/30, MSE = 4.932686
+[Vec-Ratio clf:1 and ratio:0] epoch 9/30, MSE = 4.840488
+[Vec-Ratio clf:1 and ratio:0] epoch 10/30, MSE = 4.703890
+[Vec-Ratio clf:1 and ratio:0] epoch 11/30, MSE = 4.614561
+[Vec-Ratio clf:1 and ratio:0] epoch 12/30, MSE = 4.589617
+[Vec-Ratio clf:1 and ratio:0] epoch 13/30, MSE = 4.557868
+[Vec-Ratio clf:1 and ratio:0] epoch 14/30, MSE = 4.531163
+[Vec-Ratio clf:1 and ratio:0] epoch 15/30, MSE = 4.495146
+[Vec-Ratio clf:1 and ratio:0] epoch 16/30, MSE = 4.333525
+[Vec-Ratio clf:1 and ratio:0] epoch 17/30, MSE = 4.358785
+[Vec-Ratio clf:1 and ratio:0] epoch 18/30, MSE = 4.279246
+[Vec-Ratio clf:1 and ratio:0] epoch 19/30, MSE = 4.205858
+[Vec-Ratio clf:1 and ratio:0] epoch 20/30, MSE = 4.247612
+[Vec-Ratio clf:1 and ratio:0] epoch 21/30, MSE = 4.102766
+[Vec-Ratio clf:1 and ratio:0] epoch 22/30, MSE = 3.993060
+[Vec-Ratio clf:1 and ratio:0] epoch 23/30, MSE = 3.964996
+[Vec-Ratio clf:1 and ratio:0] epoch 24/30, MSE = 4.003570
+[Vec-Ratio clf:1 and ratio:0] epoch 25/30, MSE = 3.938017
+[Vec-Ratio clf:1 and ratio:0] epoch 26/30, MSE = 3.865191
+[Vec-Ratio clf:1 and ratio:0] epoch 27/30, MSE = 3.736732
+[Vec-Ratio clf:1 and ratio:0] epoch 28/30, MSE = 3.662338
+[Vec-Ratio clf:1 and ratio:0] epoch 29/30, MSE = 3.562636
+[Vec-Ratio clf:1 and ratio:0] epoch 30/30, MSE = 3.389062
+Time taken to train ratio net vector: 67.38 seconds
+[Vec-Ratio clf:0 and ratio:1] epoch 1/1, MSE = 2451.330630
+Time taken to train ratio net vector: 2.30 seconds
+[Vec-Ratio clf:0.25 and ratio:1] epoch 1/1, MSE = 3478.253606
+Time taken to train ratio net vector: 3.60 seconds
+[Ratio estimator] ratio vector on t-classifier trained
+
+
+[Sampling] gamma=0, type=LRG, ratio_net=no ratio used
+Sampling: 100%|██████████| 20/20 [00:03<00:00,  6.06step/s]
+Sampled sequences (γ=0), type=LRG, ratio_net=no ratio used
+Number of sequences dropped: 42 out of 4096. (1.03%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.2519  0.1342  0.1087  0.0747  0.4305   |    0.2436  0.1741  0.0888  0.0432  0.4503
+   0.2265  0.0795  0.1756  0.1967  0.3218   |    0.2243  0.0529  0.1653  0.2273  0.3302
+   0.2194  0.1684  0.1877  0.2752  0.1493   |    0.2061  0.2090  0.1724  0.3030  0.1096
+   0.1854  0.1288  0.2311  0.3034  0.1512   |    0.1660  0.1403  0.2319  0.3487  0.1130
+   0.1486  0.1255  0.3005  0.3071  0.1184   |    0.1136  0.1394  0.3235  0.3387  0.0848
+P error max=0.0453  µ_diff=0.0235
+
+[Sampling] gamma=1, type=LRG, ratio_net=ratio vector on t-classifier
+Sampling: 100%|██████████| 20/20 [00:18<00:00,  1.07step/s]
+Sampled sequences (γ=1), type=LRG, ratio_net=ratio vector on t-classifier
+Number of sequences dropped: 4 out of 4096. (0.10%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.2207  0.1456  0.3724  0.1233  0.1380   |    0.1987  0.1973  0.3629  0.1680  0.0730
+   0.2253  0.1019  0.2811  0.1541  0.2376   |    0.1780  0.1975  0.1497  0.2103  0.2645
+   0.2358  0.1352  0.2855  0.1947  0.1488   |    0.1518  0.1309  0.2279  0.2664  0.2229
+   0.2745  0.1152  0.3223  0.1433  0.1447   |    0.1939  0.1265  0.2568  0.1878  0.2350
+   0.2791  0.1551  0.3352  0.1725  0.0581   |    0.3480  0.2954  0.1623  0.1614  0.0328
+P error max=0.1729  µ_diff=0.0621
+
+[Sampling] gamma=1, type=PLG, ratio_net=ratio vector on t-classifier
+Sampling: 100%|██████████| 20/20 [00:18<00:00,  1.07step/s]
+Sampled sequences (γ=1), type=PLG, ratio_net=ratio vector on t-classifier
+Number of sequences dropped: 8 out of 4096. (0.20%)
+
+Row‑stochastic transition matrices (pred | true):
+   0.2307  0.1596  0.3200  0.1256  0.1641   |    0.1987  0.1973  0.3629  0.1680  0.0730
+   0.2170  0.1012  0.2646  0.1686  0.2485   |    0.1780  0.1975  0.1497  0.2103  0.2645
+   0.2286  0.1468  0.2705  0.2050  0.1491   |    0.1518  0.1309  0.2279  0.2664  0.2229
+   0.2521  0.1154  0.3239  0.1512  0.1574   |    0.1939  0.1265  0.2568  0.1878  0.2350
+   0.2539  0.1611  0.3317  0.1964  0.0570   |    0.3480  0.2954  0.1623  0.1614  0.0328
+P error max=0.1693  µ_diff=0.0613

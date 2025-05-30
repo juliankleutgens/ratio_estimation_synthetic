@@ -1,0 +1,7 @@
+{"time":"2025-05-30T15:51:38.264622-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250530_155138-cjy7cjuy/logs/debug-core.log"}
+{"time":"2025-05-30T15:51:38.513097-04:00","level":"INFO","msg":"created new stream","id":"cjy7cjuy"}
+{"time":"2025-05-30T15:51:38.513145-04:00","level":"INFO","msg":"stream: started","id":"cjy7cjuy"}
+{"time":"2025-05-30T15:51:38.513194-04:00","level":"INFO","msg":"handler: started","stream_id":"cjy7cjuy"}
+{"time":"2025-05-30T15:51:38.513241-04:00","level":"INFO","msg":"sender: started","stream_id":"cjy7cjuy"}
+{"time":"2025-05-30T15:51:38.513334-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"cjy7cjuy"}
+{"time":"2025-05-30T15:51:38.681928-04:00","level":"INFO","msg":"Starting system monitor"}

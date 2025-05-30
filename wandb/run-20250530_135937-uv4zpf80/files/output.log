@@ -1,0 +1,156 @@
+[Denoiser] epoch 1/40 trainCE = 3.4201
+[Denoiser] epoch 2/40 trainCE = 2.3806
+[Denoiser] epoch 3/40 trainCE = 2.3730
+[Denoiser] epoch 4/40 trainCE = 2.3397
+[Denoiser] epoch 5/40 trainCE = 2.3498
+[Denoiser] epoch 6/40 trainCE = 2.3209
+[Denoiser] epoch 7/40 trainCE = 2.3456
+[Denoiser] epoch 8/40 trainCE = 2.3374
+[Denoiser] epoch 9/40 trainCE = 2.3046
+[Denoiser] epoch 10/40 trainCE = 2.3437
+[Denoiser] epoch 11/40 trainCE = 2.3349
+[Denoiser] epoch 12/40 trainCE = 2.3230
+[Denoiser] epoch 13/40 trainCE = 2.3696
+[Denoiser] epoch 14/40 trainCE = 2.3196
+[Denoiser] epoch 15/40 trainCE = 2.2958
+[Denoiser] epoch 16/40 trainCE = 2.3314
+[Denoiser] epoch 17/40 trainCE = 2.2969
+[Denoiser] epoch 18/40 trainCE = 2.2897
+[Denoiser] epoch 19/40 trainCE = 2.2880
+[Denoiser] epoch 20/40 trainCE = 2.2588
+[Denoiser] epoch 21/40 trainCE = 2.2937
+[Denoiser] epoch 22/40 trainCE = 2.2668
+[Denoiser] epoch 23/40 trainCE = 2.2855
+[Denoiser] epoch 24/40 trainCE = 2.2338
+[Denoiser] epoch 25/40 trainCE = 2.2291
+[Denoiser] epoch 26/40 trainCE = 2.2480
+[Denoiser] epoch 27/40 trainCE = 2.2438
+[Denoiser] epoch 28/40 trainCE = 2.2684
+[Denoiser] epoch 29/40 trainCE = 2.2392
+[Denoiser] epoch 30/40 trainCE = 2.2239
+[Denoiser] epoch 31/40 trainCE = 2.2147
+[Denoiser] epoch 32/40 trainCE = 2.2343
+[Denoiser] epoch 33/40 trainCE = 2.2295
+[Denoiser] epoch 34/40 trainCE = 2.2520
+[Denoiser] epoch 35/40 trainCE = 2.2188
+[Denoiser] epoch 36/40 trainCE = 2.2385
+[Denoiser] epoch 37/40 trainCE = 2.2435
+[Denoiser] epoch 38/40 trainCE = 2.2623
+[Denoiser] epoch 39/40 trainCE = 2.2481
+[Denoiser] epoch 40/40 trainCE = 2.2084
+[Ratio‑TD-only-src] epoch 1/2, loss = 0.199131
+[Ratio‑TD-only-src] epoch 2/2, loss = 0.076255
+[Ratio‑TD] epoch 1/1, loss = 0.191565
+[Ratio on t-clf] epoch  1/1, MSE = 0.147469
+[Ratio on t-clf + clean ratio] epoch  1/1, MSE = 0.429270
+[Ratio-Reg] epoch 1/1  L_ratio=0.0958  L_cycle=0.3380  L_consistency=0.0000
+[Ratio estimator] ratio scaler only on src trained
+
+
+[Sampling] gamma=0, type=LRG, ratio_net=no ratio used
+
+Denoising trajectory for sample 0 (length 2, 100 steps):
+----------------------------------------
+00: □ □
+01: □ □
+02: □ □
+03: □ □
+04: □ □
+05: □ □
+06: □ □
+07: □ □
+08: □ □
+09: □ □
+10: □ □
+11: □ □
+12: □ □
+13: □ □
+14: □ □
+15: □ □
+16: □ □
+17: □ □
+18: □ □
+19: □ □
+20: □ □
+21: □ □
+22: □ □
+23: □ □
+24: □ □
+25: □ □
+26: □ □
+27: □ □
+28: □ □
+29: □ □
+30: □ □
+31: □ □
+32: □ □
+33: □ □
+34: □ □
+35: □ □
+36: □ □
+37: □ □
+38: □ □
+39: □ □
+40: □ □
+41: □ □
+42: □ □
+43: □ û
+44: □ □
+45: □ ı
+46: □ ı
+47: □ ı
+48: □ ı
+49: □ ı
+50: □ ı
+51: □ ı
+52: p ı
+53: p ı
+54: p □
+55: p 
+56: p 
+57: p 
+58: p 
+59: p □
+60: p □
+61: p □
+62: □ □
+63: □ Ŀ
+64: ŗ Ŀ
+65: ŗ Ŀ
+66: □ □
+67: □ □
+68: □ □
+69: □ □
+70: □ □
+71: □ □
+72: □ □
+73: □ □
+74: □ □
+75: □ □
+76: □ ö
+77: □ ö
+78: □ ö
+79: □ ö
+80: □ ö
+81: □ ö
+82: □ ö
+83: □ ö
+84: □ ö
+85: □ ö
+86: □ ö
+87: □ ö
+88: □ □
+89: □ □
+90: □ □
+91: □ □
+92: p □
+93: p □
+94: p □
+95: p □
+96: p □
+97: p □
+98: p □
+99: p □
+100: p □
+Sampling: 100%|██████████| 100/100 [00:17<00:00,  5.77step/s]
+Filtered out 4864 samples, because they contain the Mask token

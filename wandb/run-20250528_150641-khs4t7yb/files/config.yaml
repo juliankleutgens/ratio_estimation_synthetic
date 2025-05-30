@@ -1,0 +1,92 @@
+_wandb:
+    value:
+        cli_version: 0.19.11
+        m: []
+        python_version: 3.9.21
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 16
+                - 23
+                - 55
+            "4": 3.9.21
+            "5": 0.19.11
+            "8":
+                - 5
+            "12": 0.19.11
+            "13": darwin-arm64
+batch_size:
+    value: 256
+data_type:
+    value: markov
+denoiser_dim:
+    value: 256
+denoiser_heads:
+    value: 4
+denoiser_layers:
+    value: 4
+denoising_steps:
+    value: 20
+device:
+    value: mps
+dimension_gaussian:
+    value: 2
+distance:
+    value: 2
+eta:
+    value: 1
+extra_target_tokens:
+    value: 0
+grid_size:
+    value: 6
+grid_size_discrete:
+    value: 9
+len_seqs:
+    value: 30
+num_mixtures:
+    value: 2
+number_of_source_samples:
+    value: 10000
+number_of_target_samples:
+    value: 1000
+quantization_step:
+    value: 0.04
+sample_batch_size:
+    value: 1024
+sample_gammas:
+    value:
+        - 0
+        - 0.5
+        - 1
+        - 2
+sample_size:
+    value: 4096
+seed:
+    value: 100
+skip_ratio_estimator_on_clean_data:
+    value: true
+source_dist:
+    value: uniform
+target_dist:
+    value: gaussian
+test_run:
+    value: false
+train_classifier_epochs:
+    value: 30
+train_denoiser_epochs:
+    value: 20
+train_ratio_estimator_epochs:
+    value: 30
+type_of_T_matrix:
+    value: random
+unguided_sampling:
+    value: false
+use_plg:
+    value: true
+vocab_size:
+    value: 5

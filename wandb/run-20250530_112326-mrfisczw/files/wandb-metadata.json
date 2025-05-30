@@ -1,0 +1,12 @@
+{
+  "os": "macOS-15.4.1-arm64-arm-64bit",
+  "python": "CPython 3.9.21",
+  "startedAt": "2025-05-30T15:23:26.090348Z",
+  "program": "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py",
+  "codePath": "main2.py",
+  "email": "juliankleutgens@googlemail.com",
+  "root": "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic",
+  "host": "Julians-MacBook-Pro-2.local",
+  "executable": "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/bin/python",
+  "codePathLocal": "main2.py"
+}

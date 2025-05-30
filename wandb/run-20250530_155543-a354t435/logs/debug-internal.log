@@ -1,0 +1,8 @@
+{"time":"2025-05-30T15:55:43.796562-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250530_155543-a354t435/logs/debug-core.log"}
+{"time":"2025-05-30T15:55:44.012895-04:00","level":"INFO","msg":"created new stream","id":"a354t435"}
+{"time":"2025-05-30T15:55:44.012933-04:00","level":"INFO","msg":"stream: started","id":"a354t435"}
+{"time":"2025-05-30T15:55:44.012935-04:00","level":"INFO","msg":"handler: started","stream_id":"a354t435"}
+{"time":"2025-05-30T15:55:44.012959-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"a354t435"}
+{"time":"2025-05-30T15:55:44.012962-04:00","level":"INFO","msg":"sender: started","stream_id":"a354t435"}
+{"time":"2025-05-30T15:55:44.168406-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-30T15:58:14.526592-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Try%20out%20Ratio%20Network%20implementation/a354t435/file_stream\": EOF"}

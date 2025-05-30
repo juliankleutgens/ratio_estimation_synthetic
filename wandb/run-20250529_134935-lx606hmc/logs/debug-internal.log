@@ -1,0 +1,15 @@
+{"time":"2025-05-29T13:49:35.471545-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250529_134935-lx606hmc/logs/debug-core.log"}
+{"time":"2025-05-29T13:49:35.729076-04:00","level":"INFO","msg":"created new stream","id":"lx606hmc"}
+{"time":"2025-05-29T13:49:35.729283-04:00","level":"INFO","msg":"stream: started","id":"lx606hmc"}
+{"time":"2025-05-29T13:49:35.729301-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:35.729603-04:00","level":"INFO","msg":"handler: started","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:35.729731-04:00","level":"INFO","msg":"sender: started","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:35.917339-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-29T13:49:36.077353-04:00","level":"INFO","msg":"stream: closing","id":"lx606hmc"}
+{"time":"2025-05-29T13:49:36.077577-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-29T13:49:36.077597-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-29T13:49:36.60162-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-29T13:49:36.766101-04:00","level":"INFO","msg":"handler: closed","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:36.766397-04:00","level":"INFO","msg":"sender: closed","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:36.766766-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"lx606hmc"}
+{"time":"2025-05-29T13:49:36.767114-04:00","level":"INFO","msg":"stream: closed","id":"lx606hmc"}

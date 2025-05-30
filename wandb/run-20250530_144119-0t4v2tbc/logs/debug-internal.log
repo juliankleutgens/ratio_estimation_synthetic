@@ -1,0 +1,8 @@
+{"time":"2025-05-30T14:41:19.210191-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250530_144119-0t4v2tbc/logs/debug-core.log"}
+{"time":"2025-05-30T14:41:19.534257-04:00","level":"INFO","msg":"created new stream","id":"0t4v2tbc"}
+{"time":"2025-05-30T14:41:19.534339-04:00","level":"INFO","msg":"handler: started","stream_id":"0t4v2tbc"}
+{"time":"2025-05-30T14:41:19.534367-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"0t4v2tbc"}
+{"time":"2025-05-30T14:41:19.534458-04:00","level":"INFO","msg":"stream: started","id":"0t4v2tbc"}
+{"time":"2025-05-30T14:41:19.534459-04:00","level":"INFO","msg":"sender: started","stream_id":"0t4v2tbc"}
+{"time":"2025-05-30T14:41:19.793-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-30T14:48:20.413022-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Try%20out%20Ratio%20Network%20implementation/0t4v2tbc/file_stream\": EOF"}

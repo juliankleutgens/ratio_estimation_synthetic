@@ -1,0 +1,15 @@
+{"time":"2025-05-27T17:16:17.35723-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250527_171617-vp7sxljm/logs/debug-core.log"}
+{"time":"2025-05-27T17:16:17.657196-04:00","level":"INFO","msg":"created new stream","id":"vp7sxljm"}
+{"time":"2025-05-27T17:16:17.657391-04:00","level":"INFO","msg":"stream: started","id":"vp7sxljm"}
+{"time":"2025-05-27T17:16:17.657399-04:00","level":"INFO","msg":"handler: started","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T17:16:17.657616-04:00","level":"INFO","msg":"sender: started","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T17:16:17.657634-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T17:16:17.880404-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-27T18:08:34.746496-04:00","level":"INFO","msg":"stream: closing","id":"vp7sxljm"}
+{"time":"2025-05-27T18:08:34.74679-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-27T18:08:34.747094-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-27T18:08:35.139952-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-27T18:08:35.29964-04:00","level":"INFO","msg":"sender: closed","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T18:08:35.29975-04:00","level":"INFO","msg":"handler: closed","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T18:08:35.299787-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vp7sxljm"}
+{"time":"2025-05-27T18:08:35.299919-04:00","level":"INFO","msg":"stream: closed","id":"vp7sxljm"}

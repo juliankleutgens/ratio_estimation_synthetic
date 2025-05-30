@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 564, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 211, in main
+    src, tgt, extras = load_data()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 169, in load_data
+    tgt, _, _ = discrete_gray_codes_forms(form=config.target, grid_min=-config.grid_size, grid_max=config.grid_size,
+AttributeError: 'types.SimpleNamespace' object has no attribute 'target'

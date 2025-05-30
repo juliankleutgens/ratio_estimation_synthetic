@@ -1,0 +1,16 @@
+{"time":"2025-05-27T16:32:52.380351-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250527_163252-6rtoi152/logs/debug-core.log"}
+{"time":"2025-05-27T16:32:52.616663-04:00","level":"INFO","msg":"created new stream","id":"6rtoi152"}
+{"time":"2025-05-27T16:32:52.6167-04:00","level":"INFO","msg":"stream: started","id":"6rtoi152"}
+{"time":"2025-05-27T16:32:52.616706-04:00","level":"INFO","msg":"handler: started","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:32:52.616716-04:00","level":"INFO","msg":"sender: started","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:32:52.616739-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:32:52.839201-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-27T16:34:08.206229-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Try%20out%20Ratio%20Network%20implementation/6rtoi152/file_stream\": EOF"}
+{"time":"2025-05-27T16:38:02.136076-04:00","level":"INFO","msg":"stream: closing","id":"6rtoi152"}
+{"time":"2025-05-27T16:38:02.136582-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-27T16:38:02.136657-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-27T16:38:02.517254-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-27T16:38:02.712198-04:00","level":"INFO","msg":"handler: closed","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:38:02.712317-04:00","level":"INFO","msg":"sender: closed","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:38:02.713438-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"6rtoi152"}
+{"time":"2025-05-27T16:38:02.713507-04:00","level":"INFO","msg":"stream: closed","id":"6rtoi152"}

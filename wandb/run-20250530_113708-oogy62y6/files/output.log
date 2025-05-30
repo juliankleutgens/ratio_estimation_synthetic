@@ -1,0 +1,48 @@
+[Denoiser] epoch 1/30 trainCE = 4.1390
+[Denoiser] epoch 2/30 trainCE = 2.4007
+[Denoiser] epoch 3/30 trainCE = 2.3193
+[Denoiser] epoch 4/30 trainCE = 2.2468
+[Denoiser] epoch 5/30 trainCE = 2.2722
+[Denoiser] epoch 6/30 trainCE = 2.2686
+[Denoiser] epoch 7/30 trainCE = 2.2513
+[Denoiser] epoch 8/30 trainCE = 2.2277
+[Denoiser] epoch 9/30 trainCE = 2.2482
+[Denoiser] epoch 10/30 trainCE = 2.2510
+[Denoiser] epoch 11/30 trainCE = 2.2219
+[Denoiser] epoch 12/30 trainCE = 2.2223
+[Denoiser] epoch 13/30 trainCE = 2.2189
+[Denoiser] epoch 14/30 trainCE = 2.2719
+[Denoiser] epoch 15/30 trainCE = 2.2655
+[Denoiser] epoch 16/30 trainCE = 2.2048
+[Denoiser] epoch 17/30 trainCE = 2.2255
+[Denoiser] epoch 18/30 trainCE = 2.1877
+[Denoiser] epoch 19/30 trainCE = 2.2341
+[Denoiser] epoch 20/30 trainCE = 2.2477
+[Denoiser] epoch 21/30 trainCE = 2.2332
+[Denoiser] epoch 22/30 trainCE = 2.2352
+[Denoiser] epoch 23/30 trainCE = 2.2082
+[Denoiser] epoch 24/30 trainCE = 2.2376
+[Denoiser] epoch 25/30 trainCE = 2.2968
+[Denoiser] epoch 26/30 trainCE = 2.2407
+[Denoiser] epoch 27/30 trainCE = 2.2174
+[Denoiser] epoch 28/30 trainCE = 2.2315
+[Denoiser] epoch 29/30 trainCE = 2.1938
+[Denoiser] epoch 30/30 trainCE = 2.2025
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/training.py", line 540, in train_ratio_estimator
+    c_out = domain_classifier(x0).squeeze(-1)          # (B,)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/models.py", line 225, in forward
+    x = self.emb(seq) + self.pos            # (B, L, d)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/modules/sparse.py", line 190, in forward
+    return F.embedding(
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/torch/nn/functional.py", line 2551, in embedding
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+RuntimeError: Placeholder storage has not been allocated on MPS device!

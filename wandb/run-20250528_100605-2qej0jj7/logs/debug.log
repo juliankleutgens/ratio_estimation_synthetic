@@ -1,0 +1,577 @@
+2025-05-28 10:06:05,393 INFO    MainThread:79809 [wandb_setup.py:_flush():70] Current SDK version is 0.19.11
+2025-05-28 10:06:05,393 INFO    MainThread:79809 [wandb_setup.py:_flush():70] Configure stats pid to 79809
+2025-05-28 10:06:05,393 INFO    MainThread:79809 [wandb_setup.py:_flush():70] Loading settings from /Users/juliankleutgens/.config/wandb/settings
+2025-05-28 10:06:05,393 INFO    MainThread:79809 [wandb_setup.py:_flush():70] Loading settings from /Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/settings
+2025-05-28 10:06:05,393 INFO    MainThread:79809 [wandb_setup.py:_flush():70] Loading settings from environment variables
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:setup_run_log_directory():724] Logging user logs to /Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250528_100605-2qej0jj7/logs/debug.log
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:setup_run_log_directory():725] Logging internal logs to /Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250528_100605-2qej0jj7/logs/debug-internal.log
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:init():852] calling init triggers
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:init():857] wandb.init called with sweep_config: {}
+config: {'data_type': 'point_forms', 'unguided_sampling': False, 'skip_ratio_estimator_on_clean_data': True, 'test_run': False, 'seed': 100, 'len_seqs': 30, 'vocab_size': 5, 'number_of_source_samples': 10000, 'number_of_target_samples': 1000, 'dimension_gaussian': 2, 'num_mixtures': 2, 'grid_size': 6, 'quantization_step': 0.04, 'source_dist': 'uniform', 'target_dist': 'gaussian', 'distance': 2, 'grid_size_discrete': 9, 'type_of_T_matrix': 'diagonal', 'extra_target_tokens': 1, 'batch_size': 256, 'device': device(type='mps'), 'train_classifier_epochs': 30, 'train_ratio_estimator_epochs': 30, 'train_denoiser_epochs': 20, 'denoiser_dim': 256, 'denoiser_heads': 4, 'denoiser_layers': 4, 'sample_batch_size': 1024, 'sample_gammas': [0, 0.5, 1, 2], 'sample_size': 2048, 'denoising_steps': 20, 'use_plg': True, 'eta': 1.0, '_wandb': {}}
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:init():893] starting backend
+2025-05-28 10:06:05,394 INFO    MainThread:79809 [wandb_init.py:init():897] sending inform_init request
+2025-05-28 10:06:05,427 INFO    MainThread:79809 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2025-05-28 10:06:05,428 INFO    MainThread:79809 [wandb_init.py:init():907] backend started and connected
+2025-05-28 10:06:05,432 INFO    MainThread:79809 [wandb_init.py:init():1005] updated telemetry
+2025-05-28 10:06:05,432 INFO    MainThread:79809 [wandb_init.py:init():1029] communicating run to backend with 90.0 second timeout
+2025-05-28 10:06:05,805 INFO    MainThread:79809 [wandb_init.py:init():1104] starting run threads in backend
+2025-05-28 10:06:05,892 INFO    MainThread:79809 [wandb_run.py:_console_start():2573] atexit reg
+2025-05-28 10:06:05,893 INFO    MainThread:79809 [wandb_run.py:_redirect():2421] redirect: wrap_raw
+2025-05-28 10:06:05,893 INFO    MainThread:79809 [wandb_run.py:_redirect():2490] Wrapping output streams.
+2025-05-28 10:06:05,893 INFO    MainThread:79809 [wandb_run.py:_redirect():2513] Redirects installed.
+2025-05-28 10:06:05,896 INFO    MainThread:79809 [wandb_init.py:init():1150] run started, returning control to user process
+2025-05-28 10:06:05,896 INFO    MainThread:79809 [wandb_run.py:_config_callback():1436] config_cb None None {'data_type': 'point_forms', 'unguided_sampling': False, 'skip_ratio_estimator_on_clean_data': True, 'test_run': False, 'seed': 100, 'len_seqs': 30, 'vocab_size': 5, 'number_of_source_samples': 10000, 'number_of_target_samples': 1000, 'dimension_gaussian': 2, 'num_mixtures': 2, 'grid_size': 6, 'quantization_step': 0.04, 'source_dist': 'uniform', 'target_dist': 'gaussian', 'distance': 2, 'grid_size_discrete': 9, 'type_of_T_matrix': 'diagonal', 'extra_target_tokens': 1, 'batch_size': 256, 'device': 'mps', 'train_classifier_epochs': 30, 'train_ratio_estimator_epochs': 30, 'train_denoiser_epochs': 20, 'denoiser_dim': 256, 'denoiser_heads': 4, 'denoiser_layers': 4, 'sample_batch_size': 1024, 'sample_gammas': [0, 0.5, 1, 2], 'sample_size': 2048, 'denoising_steps': 20, 'use_plg': True, 'eta': 1.0}
+2025-05-28 10:06:43,008 WARNING MsgRouterThr:79809 [router.py:message_loop():63] [no run ID] message_loop has been closed
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 208, in _read_packet_bytes
+    data = self._sock.recv(self._bufsize)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/router_sock.py", line 27, in _read_message
+    return self._sock_client.read_server_response(timeout=1)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 235, in read_server_response
+    data = self._read_packet_bytes(timeout=timeout)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 212, in _read_packet_bytes
+    raise SockClientClosedError from e
+wandb.sdk.lib.sock_client.SockClientClosedError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/router.py", line 56, in message_loop
+    msg = self._read_message()
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/router_sock.py", line 29, in _read_message
+    raise MessageRouterClosedError from e
+wandb.sdk.interface.router.MessageRouterClosedError
+2025-05-28 10:06:43,008 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 530, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 204, in main
+    src, tgt, extras = load_data()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 155, in load_data
+    src, vocab_size = discrete_gray_codes_forms(form="swissroll", grid_min=config.grid_size, grid_max=config.grid_size,
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 1597, in _pydevd_bundle.pydevd_cython_darwin_39_64.ThreadTracer.__call__
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 937, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 928, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 585, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.do_wait_suspend
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1185, in do_wait_suspend
+    self._do_wait_suspend(thread, frame, event, arg, suspend_type, from_this_thread)
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1200, in _do_wait_suspend
+    time.sleep(0.01)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,009 INFO    MsgRouterThr:79809 [mailbox.py:close():129] [no run ID] Closing mailbox, abandoning 1 handles.
+2025-05-28 10:06:43,011 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 530, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 204, in main
+    src, tgt, extras = load_data()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 155, in load_data
+    src, vocab_size = discrete_gray_codes_forms(form="swissroll", grid_min=config.grid_size, grid_max=config.grid_size,
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 1597, in _pydevd_bundle.pydevd_cython_darwin_39_64.ThreadTracer.__call__
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 937, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 928, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 585, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.do_wait_suspend
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1185, in do_wait_suspend
+    self._do_wait_suspend(thread, frame, event, arg, suspend_type, from_this_thread)
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1200, in _do_wait_suspend
+    time.sleep(0.01)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,012 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 530, in <module>
+    main()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 204, in main
+    src, tgt, extras = load_data()
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main2.py", line 155, in load_data
+    src, vocab_size = discrete_gray_codes_forms(form="swissroll", grid_min=config.grid_size, grid_max=config.grid_size,
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/data.py", line 533, in discrete_gray_codes_forms
+    return tokens.long(), vocab_size
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 1597, in _pydevd_bundle.pydevd_cython_darwin_39_64.ThreadTracer.__call__
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 937, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 928, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle/pydevd_cython_darwin_39_64.pyx", line 585, in _pydevd_bundle.pydevd_cython_darwin_39_64.PyDBFrame.do_wait_suspend
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1185, in do_wait_suspend
+    self._do_wait_suspend(thread, frame, event, arg, suspend_type, from_this_thread)
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/pydevd.py", line 1200, in _do_wait_suspend
+    time.sleep(0.01)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,012 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,013 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+2025-05-28 10:06:43,014 ERROR   MainThread:79809 [redirect.py:_on_write():664] [no run ID] error in stderr callback
+Traceback (most recent call last):
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/redirect.py", line 662, in _on_write
+    cb(written_data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 2500, in <lambda>
+    lambda data: self._console_raw_callback("stderr", data),
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 464, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 1639, in _console_raw_callback
+    self._backend.interface.publish_output_raw(name, data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 762, in publish_output_raw
+    self._publish_output_raw(o)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 38, in _publish_output_raw
+    self._publish(rec)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 39, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 174, in send_record_publish
+    self.send_server_request(server_req)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 154, in send_server_request
+    self._send_message(msg)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 151, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/Users/juliankleutgens/opt/anaconda3/envs/tgdp/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe

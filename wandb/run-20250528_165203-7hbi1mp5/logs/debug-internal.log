@@ -1,0 +1,9 @@
+{"time":"2025-05-28T16:52:03.817977-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250528_165203-7hbi1mp5/logs/debug-core.log"}
+{"time":"2025-05-28T16:52:04.078357-04:00","level":"INFO","msg":"created new stream","id":"7hbi1mp5"}
+{"time":"2025-05-28T16:52:04.078391-04:00","level":"INFO","msg":"stream: started","id":"7hbi1mp5"}
+{"time":"2025-05-28T16:52:04.078416-04:00","level":"INFO","msg":"handler: started","stream_id":"7hbi1mp5"}
+{"time":"2025-05-28T16:52:04.078479-04:00","level":"INFO","msg":"sender: started","stream_id":"7hbi1mp5"}
+{"time":"2025-05-28T16:52:04.078652-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"7hbi1mp5"}
+{"time":"2025-05-28T16:52:04.233211-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-28T16:53:49.702687-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Try%20out%20Ratio%20Network%20implementation/7hbi1mp5/file_stream\": EOF"}
+{"time":"2025-05-28T16:57:19.796752-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Try%20out%20Ratio%20Network%20implementation/7hbi1mp5/file_stream\": EOF"}
