@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main.py", line 308, in <module>
-    main()
-  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main.py", line 182, in main
-    src, tgt, extras = load_data()
-  File "/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/main.py", line 114, in load_data
-    if config.extra_token_target:
-AttributeError: 'types.SimpleNamespace' object has no attribute 'extra_token_target'

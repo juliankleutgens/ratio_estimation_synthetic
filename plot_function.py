@@ -700,7 +700,7 @@ def plot_ratio_estimator(source_samples,target_samples,ratio_net, extras, config
     """
     ratio_net.eval()
 
-    if config.data_type == "gaussian":
+    if config.data_type == "gaussian" or config.data_type == "point_forms":
         # True continuous ratio and log-ratio grid
         ratio_true, edges_ratio, ratio_grid_log = true_ratio_grid(
             mu_S=extras["mu_s"],
@@ -725,7 +725,8 @@ def plot_ratio_estimator(source_samples,target_samples,ratio_net, extras, config
         for i in idx_of_grids:
             est_grid = ratio_net_on_grid(ratio_net,pos=i, edges=edges_ratio, device=config.device)
             # Plot heatmaps side by side for true and estimated log-ratio
-            plot_ratio_heatmaps(
+            if config.data_type == "gaussian":
+                plot_ratio_heatmaps(
                 ratio_grid_log, est_grid, edges_ratio,
                 title_true="True log ratio p/q",
                 title_est="Estimated log ratio p/q " + extra_title)

@@ -1,8 +1,0 @@
-{"time":"2025-05-27T13:50:50.775156-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/juliankleutgens/PycharmProjects/ratio_estimation_synthetic/wandb/run-20250527_135050-av6cg1jw/logs/debug-core.log"}
-{"time":"2025-05-27T13:50:51.024855-04:00","level":"INFO","msg":"created new stream","id":"av6cg1jw"}
-{"time":"2025-05-27T13:50:51.024898-04:00","level":"INFO","msg":"stream: started","id":"av6cg1jw"}
-{"time":"2025-05-27T13:50:51.024904-04:00","level":"INFO","msg":"handler: started","stream_id":"av6cg1jw"}
-{"time":"2025-05-27T13:50:51.025124-04:00","level":"INFO","msg":"sender: started","stream_id":"av6cg1jw"}
-{"time":"2025-05-27T13:50:51.02522-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"av6cg1jw"}
-{"time":"2025-05-27T13:50:51.161608-04:00","level":"INFO","msg":"Starting system monitor"}
-{"time":"2025-05-27T13:53:24.85504-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/juliankleu/Transfer%20Learning%20Diffusion/av6cg1jw/file_stream\": EOF"}

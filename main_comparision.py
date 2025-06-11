@@ -10,7 +10,9 @@ from tqdm.auto import tqdm
 
 import time, types
 import torch, random, numpy as np
+import copy
 from tqdm.auto import tqdm
+from torchinfo import summary
 
 # ── editable configuration object ──────────────────────────────────────
 config = types.SimpleNamespace(
@@ -20,14 +22,19 @@ config = types.SimpleNamespace(
     skip_ratio_estimator_on_clean_data=True,
     test_run=False,                  # if True, use smaller data and fewer epochs
 
+    # -- data_type="markov",
+    extra_target_tokens=-1,  # how many extra tokens to add to the target sequences
+    type_of_T_matrix="diagonal", # "diagonal" | "random"
+    dirichlet_alpha=4.0,
+
     # reproducibility
     seed=100,
 
     # data settings
-    len_seqs=30,
+    len_seqs=20,
     vocab_size=5,
     number_of_source_samples=10_000,
-    number_of_target_samples=1_000,
+    number_of_target_samples=10_000,
 
     # data_type="gaussian",                         ´
     dimension_gaussian=2,
@@ -40,15 +47,14 @@ config = types.SimpleNamespace(
     target_dist="gaussian", # "uniform" | "gaussian" | "x2"
     distance=0, # distance between source and target distributions
 
-    # -- data_type="markov",
-    extra_target_tokens=1 , # how many extra tokens to add to the target sequences
 
     # training
     batch_size=256,
     device=torch.device("mps" if torch.backends.mps.is_available() else "cpu"),
-    train_classifier_epochs=30,
+    train_classifier_epochs=20,
     train_ratio_estimator_epochs=30,
     train_denoiser_epochs=20,
+
 
     # denoiser model dims
     denoiser_dim=256,
@@ -57,10 +63,11 @@ config = types.SimpleNamespace(
 
     # sampling
     sample_batch_size=512*2,
-    sample_gammas=[0,1,2], # [0.0, .1,.2,.3,.4,.5,0.6,.7,.8,.9, 1.0, 2.0],
-    sample_size=2048,
+    sample_gammas=[0,1], # [0.0, .1,.2,.3,.4,.5,0.6,.7,.8,.9, 1.0, 2.0],
+    sample_size=2048*2,
     denoising_steps=20,
-    use_plg=True
+    use_plg=False,
+    output_with_sigmoid=False,  # whether to apply sigmoid to the output of the classifier
 )
 
 # ── local modules (unchanged function names) ────────────────────────────
@@ -71,23 +78,25 @@ from data import (
     estimate_transition_matrix,
     create_probability_maps,
     sample_from_prob_map,
+    sample_markov,
 )
-from utils import transition_stats, seed_everything, print_trace
+from utils import *
 from plot_function import (
     plot_iid_gmm_points,
     plot_ratio_estimator,
     plot_prob_map,
     plot_sample_counts,
 )
-from models import AdaLNDenoiser, ClassiferNet, RatioNetAdaLN
+from models import AdaLNDenoiser, ClassiferNet, RatioNetAdaLN, RatioNetAdaLNVector
 from diffusion import LogLinearNoise, DiffusionConfig, Diffusion
 from training import (
     train_domain_classifier,
     validate_domain_classifier,
-    train_ratio_estimator_on_clean_data,
+    train_time_dependent_classifier,
+    train_ratio_network_with_regularization_like_tldm_paper,
     train_ratio_estimator,
-    train_ratio_estimator_on_noisy_data_is,
     train_denoiser,
+    vector_ratio_training,
 )
 import wandb
 wandb.init(
@@ -104,16 +113,22 @@ def load_data():
 
     # ----------------------- markov -----------------------
     if config.data_type == "markov":
-        src, tgt, P, Q, vc_sz = build_markov_transfer(
+        src, tgt, S, T, vc_sz = build_markov_transfer(
             L=config.len_seqs,
+            type_of_T_matrix=config.type_of_T_matrix,
+            dirichlet_alpha_src=config.dirichlet_alpha,
+            dirichlet_alpha_tgt=config.dirichlet_alpha,
             vocab_size=config.vocab_size,
             n_src=config.number_of_source_samples,
             n_tgt=config.number_of_target_samples,
             extra_target_tokens=config.extra_target_tokens,
         )
+        src_val = torch.stack([sample_markov(config.len_seqs, S)for _ in range(5000)]).to("cpu")
+        tgt_val = torch.stack([sample_markov(config.len_seqs, T)for _ in range(5000)]).to("cpu")
 
         config.vocab_size = vc_sz
-        return src, tgt, {"S": P, "T": Q}
+        S, T = addjust_transition_matrix_size(S, T)
+        return src, tgt, {"S": S, "T": T, "src_val": src_val, "tgt_val": tgt_val}
 
     # ----------------------- gaussian -----------------------
     if config.data_type == "gaussian":
@@ -153,11 +168,17 @@ def load_data():
 def evaluate_raw_data(src, tgt, extras):
     """Quick sanity checks / visualisations before training."""
     if config.data_type == "markov":
-        P_est = estimate_transition_matrix(src, config.vocab_size)
-        abs_diff, norm, diag_mean = transition_stats(P_est, extras["S"])
+        S_est = estimate_transition_matrix(src, config.vocab_size)
+        abs_diff, norm, diag_mean,_ = transition_stats(S_est, extras["S"], config)
         print(
             f"[Data] P_est error: max {abs_diff.max():.4f}  ‖·‖₁={norm:.4f} mean_diag={diag_mean:.4f}"
         )
+        T_est = estimate_transition_matrix(tgt, config.vocab_size)
+        abs_diff, norm, diag_mean,_ = transition_stats(T_est, extras["T"], config)
+        print(
+            f"[Data] Q_est error: max {abs_diff.max():.4f}  ‖·‖₁={norm:.4f} mean_diag={diag_mean:.4f}"
+        )
+
     elif config.data_type == "gaussian":
         edges = extras["edges"]
         plot_iid_gmm_points(tgt, edges, title="Target samples")
@@ -176,9 +197,11 @@ def evaluate_sampled_data(samples, gamma, type, dt, extras):
     if config.data_type == "markov":
         print(f"Sampled sequences (γ={gamma}), type={type}")
         P_est = estimate_transition_matrix(samples.cpu(), config.vocab_size)
-        P_true = extras["S"] if gamma == 0 else extras["T"]
-        abs_diff, norm, mean_diag = transition_stats(P_est, P_true)
+        P_true = extras["T"] if not type == "source" else extras["S"]
+        abs_diff, norm, mean_diag, mean_extra = transition_stats(P_est, P_true, config)
         print(f"P error max={abs_diff.max():.4f}  ‖·‖₁={norm:.4f} mean_diag={mean_diag:.4f} (t={dt:.1f}s)")
+        if config.extra_target_tokens > 0:
+            print(f"Average mean distance in extra token {mean_extra}")
     elif config.data_type == "gaussian":
         plot_iid_gmm_points(samples.cpu(), extras["edges"], title=f"Generated γ={gamma}, type={type}")
     elif config.data_type == "discrete":
@@ -196,6 +219,9 @@ def main() -> None:
     # --------------------------------------------------------------------------
     # 1 ▸ Data -----------------------------------------------------------------
     src, tgt, extras = load_data()
+    src_val, tgt_val = extras["src_val"], extras["tgt_val"]
+    ratio_in_data_size = len(src) / len(tgt)
+    unbalance_data = True if ratio_in_data_size**-1 < 0.1 else False
     evaluate_raw_data(src, tgt, extras)
     if config.test_run:
         config.train_classifier_epochs = 3
@@ -206,73 +232,64 @@ def main() -> None:
 
     # --------------------------------------------------------------------------
     # 2 ▸ Domain classifier ----------------------------------------------------
-    if not config.skip_ratio_estimator_on_clean_data or not config.unguided_sampling:
-        classifier = train_domain_classifier(
+    classifier = train_domain_classifier(
             model=ClassiferNet(
-                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_with_sigmoid=False
+                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_with_sigmoid=config.output_with_sigmoid
             ),
             source_data=src,
             target_data=tgt,
             epochs=config.train_classifier_epochs,
             batch_size=config.batch_size,
             device=config.device,
+            unbalance_data=unbalance_data,
+            classifier_output_with_sigmoid=config.output_with_sigmoid,
         )
-        validate_domain_classifier(
+    validate_domain_classifier(
             classifier,
-            src,
-            tgt,
+            src_val,
+            tgt_val,
             batch_size=config.batch_size,
             device=config.device,
         )
 
-    # --------------------------------------------------------------------------
-    # 3 ▸ Ratio estimator (clean) ---------------------------------------------
-    if not config.skip_ratio_estimator_on_clean_data:
-        train_ratio_estimator_on_clean_data(
-            model=ClassiferNet(
-                vocab_sz=config.vocab_size, seq_len=config.len_seqs
-            ),
-            domain_classifier=classifier,
-            source_data=src,
-            target_data=tgt,
-            epochs=config.train_ratio_estimator_epochs,
-            batch_size=config.batch_size,
-            device=config.device,
-        )
-
-
-    # --------------------------------------------------------------------------
-    # 4 ▸ Ratio estimator (noisy) ---------------------------------------------
-    ratio_net_guided = RatioNetAdaLN(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
-    if not config.unguided_sampling:
-        ratio_net_guided = train_ratio_estimator(
-            model=ratio_net_guided,
-            domain_classifier=classifier,
-            source_data=src,
-            target_data=tgt,
-            noise_sched=LogLinearNoise(),
-            diffusion="absorbing_state",
-            mask_idx=config.vocab_size,
-            vocab_size=config.vocab_size + 1,
-            epochs=config.train_ratio_estimator_epochs,
-            batch_size=config.batch_size,
-            device=config.device,
-        )
-        plot_ratio_estimator(source_samples=src, target_samples=tgt,
-            ratio_net=ratio_net_guided,extras=extras,config=config,)
-
+    classifier_t = RatioNetAdaLN(
+        vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_with_sigmoid=config.output_with_sigmoid)
+    classifier_t = train_time_dependent_classifier(
+        model=classifier_t,
+        noise_sched=LogLinearNoise(),
+        source_data=src,
+        target_data=tgt,
+        mask_idx=config.vocab_size,
+        vocab_size=config.vocab_size + 1,
+        epochs=config.train_classifier_epochs,
+        batch_size=config.batch_size,
+        device=config.device,
+        unbalance_data=unbalance_data,
+        classifier_output_with_sigmoid=config.output_with_sigmoid,
+    )
+    validate_domain_classifier(
+        classifier_t,
+        src_val,
+        tgt_val,
+        batch_size=config.batch_size,
+        device=config.device, )
 
     # --------------------------------------------------------------------------
-    # 5 ▸ Denoiser -------------------------------------------------------------
-    denoiser = AdaLNDenoiser(
+    # 3 ▸ Denoiser - source -------------------------------------------------------------
+    denoiser_source = AdaLNDenoiser(
         vocab_size=config.vocab_size + 1,
         seq_len=config.len_seqs,
         d=config.denoiser_dim,
         heads=config.denoiser_heads,
-        layers=config.denoiser_layers,
-    )
+        layers=config.denoiser_layers,)
+
+    # manual totals
+    total_params = sum(p.numel() for p in denoiser_source.parameters())
+    trainable_params = sum(p.numel() for p in denoiser_source.parameters() if p.requires_grad)
+    print(f"Total params: {total_params:,}")
+    print(f"Trainable params: {trainable_params:,}")
     denoiser_source = train_denoiser(
-        denoiser=denoiser,
+        denoiser=denoiser_source,
         train_seqs=src,
         diffusion="absorbing_state",
         mask_idx=config.vocab_size,
@@ -280,37 +297,124 @@ def main() -> None:
         epochs=config.train_denoiser_epochs,
         batch_size=config.batch_size,
         device=config.device,
-    )
+        print_name="Source",)
 
     # --------------------------------------------------------------------------
-    # 6 ▸ Sampling -------------------------------------------------------------
+    # 3 ▸ Denoiser - target -------------------------------------------------------------
+    denoiser_target = AdaLNDenoiser(
+        vocab_size=config.vocab_size + 1,
+        seq_len=config.len_seqs,
+        d=config.denoiser_dim,
+        heads=config.denoiser_heads,
+        layers=config.denoiser_layers,)
+    denoiser_target = train_denoiser(
+        denoiser=denoiser_target,
+        train_seqs=tgt,
+        diffusion="absorbing_state",
+        mask_idx=config.vocab_size,
+        vocab_size=config.vocab_size + 1,
+        epochs=int(config.train_denoiser_epochs * min(max(ratio_in_data_size, 1), 3)),
+        batch_size=config.batch_size,
+        device=config.device,
+        print_name="Target",)
+
+
+    # --------------------------------------------------------------------------
+    # 4 ▸ Train fined tuned denoiser ---------------------------------------------
+    denoiser_finetuned = copy.deepcopy(denoiser_source)
+    denoiser_finetuned = train_denoiser(
+        denoiser=denoiser_finetuned,
+        train_seqs=tgt,
+        diffusion="absorbing_state",
+        mask_idx=config.vocab_size,
+        vocab_size=config.vocab_size + 1,
+        epochs=int(config.train_denoiser_epochs),
+        batch_size=config.batch_size,
+        device=config.device,
+        print_name="Finetune",
+    )
+
+
+    # --------------------------------------------------------------------------
+    # 5 ▸ Ratio estimator (noisy) ---------------------------------------------
+    # --- ratio estimator with regularization like TLDM paper ---
+    ratio_net_guided = RatioNetAdaLN(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
+    ratio_net_guided = train_ratio_network_with_regularization_like_tldm_paper(
+        model=ratio_net_guided,
+        domain_classifier=classifier,
+        domain_classifier_t=classifier_t,
+        denoiser_model=denoiser_source,
+        eta1and2=[0.1, 0],
+        source_data=src,
+        target_data=tgt,
+        noise_sched=LogLinearNoise(),
+        diffusion="absorbing_state",
+        mask_idx=config.vocab_size,
+        vocab_size=config.vocab_size + 1,
+        epochs=config.train_ratio_estimator_epochs,
+        batch_size=config.batch_size,
+        device=config.device,
+        classifier_output_with_sigmoid=config.output_with_sigmoid,
+    )
+    plot_ratio_estimator(source_samples=src, target_samples=tgt,
+            ratio_net=ratio_net_guided,extras=extras,config=config,)
+
+    # -------------------------------------------------------------------------
+    # 6 ▸ Ratio estimator on Vector ---------------------------------------------
+    """
+    t1 = time.time()
+    ratio_net_guided_vector = RatioNetAdaLNVector(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
+    ratio_net_guided_vector = vector_ratio_training(
+        model=ratio_net_guided_vector,
+        pretrained_ratio_net=ratio_net_guided,
+        domain_classifier_t=classifier_t,
+        source_data=src,
+        target_data=tgt,
+        noise_sched=LogLinearNoise(),
+        diffusion="absorbing_state",
+        mask_idx=config.vocab_size,
+        vocab_size=config.vocab_size + 1,
+        epochs=int(config.train_ratio_estimator_epochs*1.5),
+        batch_size=config.batch_size,
+        device=config.device,
+        eta_clf_and_ratio=(.25, 1),
+        lambda_hinge=0.1,
+    )
+    t2 = time.time()
+    print(f"Time taken to train ratio net vector: {t2 - t1:.2f} seconds")
+    """
+
+
+    # --------------------------------------------------------------------------
+    # 7 ▸ Sampling -------------------------------------------------------------
     cfg = DiffusionConfig()
     cfg.vocab_size = config.vocab_size + 1
     cfg.seq_len = config.len_seqs
     cfg.mask_idx = config.vocab_size
     cfg.batch_size = config.sample_batch_size
     cfg.T_sampling = config.denoising_steps
-    for use_plg_ in [False,True]:
-        cfg.use_plg = use_plg_
-        type = "PLG" if use_plg_ else "LRG"
-        for gamma in config.sample_gammas:
-            cfg.gamma = gamma
-            print(f"\n[Sampling] gamma={gamma}")
-            sampler = Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device)
-            with torch.inference_mode():
-                sample_trace = sampler.sample_trace(num_samples=8,device=config.device,)
-            print_trace(sample_trace,sample_idx=0, vocab_size=config.vocab_size+1, mask_idx=config.vocab_size)
-            tic = time.time()
-            samples = sampler.sample(num_of_samples=config.sample_size, device=config.device)
-            dt = time.time() - tic
 
-            evaluate_sampled_data(
-                samples=samples,
-                gamma=gamma,
-                type=type,
-                dt=dt,
-                extras=extras,
+    cfg.gamma = 0.0
+    sample_dict = {
+        "source": Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device),
+        "target": Diffusion(denoiser_target, ratio_net_guided, cfg).to(config.device),
+        "finetuned": Diffusion(denoiser_finetuned, ratio_net_guided, cfg).to(config.device),
+        "guided": Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device),
+        #"guided_vector": Diffusion(denoiser_source, ratio_net_guided_vector, cfg).to(config.device),
+    }
+    for type, sampler in sample_dict.items():
+        if type == "guided" or type == "guided_vector":
+            cfg.gamma = 1.0
+        print("")
+        print("-" * 50)
+        print(f"Gamma is set to {sampler.cfg.gamma}, type={type}")
+        t1 = time.time()
+        samples = sampler.sample(
+                num_of_samples=config.sample_size,
+                device=config.device,
             )
+        dt = time.time() - t1
+        evaluate_sampled_data(samples, sampler.cfg.gamma, type, dt, extras)
 
 
 

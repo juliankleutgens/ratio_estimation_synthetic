@@ -138,7 +138,6 @@ def build_markov_transfer(
     L: int                    = 128,
     vocab_size: int           = 20,
     type_of_T_matrix: str     = "diagonal", # "diagonal" or "random"
-    dirichlet_alpha: float    = 1.0,
     diag_src: float           = 0.7,
     diag_tgt: float           = 0.4,
     dirichlet_alpha_src: float = 1.0,
@@ -173,23 +172,15 @@ def build_markov_transfer(
         Q_core = random_transition_matrix(vocab_size + extra_target_tokens,dirichlet_alpha=dirichlet_alpha_tgt,
                                           device=device)
 
-    # -------- expand P with zero rows / cols for extra tokens --------
-    if extra_target_tokens > 0:
-        P_full = torch.zeros_like(Q_core)
-        P_full[:vocab_size, :vocab_size] = P_core
-    else:
-        P_full = P_core
-
-    Q_full = Q_core  # already has the right size
-
     # -------- sample datasets --------
     src_seq = torch.stack([sample_markov(L, P_core)
                            for _ in range(n_src)]).to(device)
 
-    tgt_seq = torch.stack([sample_markov(L, Q_full)
+    tgt_seq = torch.stack([sample_markov(L, Q_core)
                            for _ in range(n_tgt)]).to(device)
-
-    return src_seq, tgt_seq, P_full, Q_full, vocab_size + extra_target_tokens
+    if extra_target_tokens > 0:
+        vocab_size += extra_target_tokens
+    return src_seq, tgt_seq, P_core, Q_core, vocab_size
 
 
 class SeqDS(TensorDataset):

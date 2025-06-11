@@ -84,7 +84,9 @@ def corrupt(
 # ==================================================================================
 # 1. Train time‑independent classifier  d_ω(x)
 # ==================================================================================
-def train_domain_classifier(model, source_data, target_data, epochs=10, batch_size=256, lr=1e-4, eps=0.1, device="cpu"):
+def train_domain_classifier(model, source_data, target_data, epochs=10, batch_size=256, lr=1e-4, eps=0.1, device="cpu"
+                            ,unbalance_data=False, classifier_output_with_sigmoid=False):
+
     source_labels = torch.ones(source_data.size(0), dtype=torch.float32)
     target_labels = torch.zeros(target_data.size(0), dtype=torch.float32)
 
@@ -92,7 +94,10 @@ def train_domain_classifier(model, source_data, target_data, epochs=10, batch_si
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 
     optimizer = torch.optim.Adam(model.parameters(),weight_decay=1e-4, lr=lr)
-    bce_loss = nn.BCELoss()
+    if classifier_output_with_sigmoid:
+        bce_loss = nn.BCELoss()
+    else:
+        bce_loss = nn.BCEWithLogitsLoss()
 
     model.to(device)
     model.train()
@@ -131,6 +136,8 @@ def train_time_dependent_classifier(
     batch_size: int = 512,
     lr: float = 1e-4,
     device: Union[str, torch.device] = "cpu",
+    unbalance_data: bool = True,  # if True, balance source and target data
+    classifier_output_with_sigmoid: bool = False,  # if True, use sigmoid output
 ):
     """
     Train a time‐conditioned domain classifier d_ω(x_t, t) on discrete sequences.
@@ -157,7 +164,10 @@ def train_time_dependent_classifier(
     # 2. move model & setup optimizer + loss
     model.to(device).train()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    bce_loss = nn.BCELoss()
+    if classifier_output_with_sigmoid:
+        bce_loss = nn.BCELoss()
+    else:
+        bce_loss = nn.BCEWithLogitsLoss()
 
     # 3. training loop
     for epoch in range(1, epochs + 1):
@@ -294,6 +304,7 @@ def train_denoiser(
     pad_val: Union[int, None] = None,                 # if you need to ignore PAD in CE
     device: Union[str, torch.device] = "cpu",
     print_every: int = 1,
+    print_name: Union[str, None] = None,  # for logging purposes, e.g. "Denoiser"
 ):
     """
     Trains `denoiser` to predict p(x₀ | x_t, σ_t).
@@ -306,10 +317,11 @@ def train_denoiser(
         assert mask_idx is not None, "Need a dedicated <mask> token id"
 
     denoiser = denoiser.to(device)
+    denoiser.train()
     opt = torch.optim.AdamW(denoiser.parameters(), lr=lr)
 
     ds     = TensorDataset(train_seqs)
-    loader = DataLoader(ds, batch_size=batch_size, shuffle=True, drop_last=True)
+    loader = DataLoader(ds, batch_size=batch_size, shuffle=True, drop_last=False)
 
     if val_seqs is not None:
         val_loader = DataLoader(TensorDataset(val_seqs),
@@ -318,8 +330,8 @@ def train_denoiser(
     ce = nn.CrossEntropyLoss(
         ignore_index=pad_val if pad_val is not None else -100)
 
+    print_label = f"[Denoiser]" if print_name is None else f"[Denoiser {print_name}]"
     for ep in range(1, epochs+1):
-        denoiser.train()
         running = 0.0
         for (x0,) in loader:
             x0 = x0.to(device)
@@ -354,7 +366,7 @@ def train_denoiser(
             running += loss2.item() * x0.size(0)
 
         if ep % print_every == 0:
-            print(f"[Denoiser] epoch {ep}/{epochs} "
+            print(f"{print_label} epoch {ep}/{epochs} "
                   f"trainCE = {running / len(ds):.4f}", end="")
             wandb.log({"Denoiser/train_loss": running / len(ds), "epoch": ep})
 
@@ -409,7 +421,7 @@ def train_ratio_estimator_on_clean_data(
     epochs: int      = 10,
     batch_size: int  = 256,
     lr: float        = 1e-4,
-    log_ratio: bool  = True,          # train on log-ratio instead of ratio
+    classifier_output_with_sigmoid: bool  = True,          # train on log-ratio instead of ratio
     device: str      = "cpu",
     lambda_lap : float = 0,   # Laplacian penalty
 ):
@@ -445,10 +457,11 @@ def train_ratio_estimator_on_clean_data(
             # 1.  Compute pseudo-targets with the fixed classifier
             with torch.no_grad():
                 c_out = domain_classifier(batch_seqs).squeeze(-1)  # [B]
-                ratio_target = (1.0 - c_out) / (c_out + eps)      # avoid /0
-                ratio_target = ratio_target.clamp(min=eps, max=1 / eps)
-                if log_ratio:
+                if classifier_output_with_sigmoid:
+                    ratio_target = (1.0 - c_out) / (c_out + eps)  # avoid /0
                     ratio_target = torch.log(ratio_target + eps)  # [B]
+                else:
+                    ratio_target = -c_out                            # [B]
 
             # ----------------------------------------------------------
             # 2.  Forward pass through ratio network
@@ -493,7 +506,7 @@ def train_ratio_estimator(
     epochs: int = 10,
     batch_size: int = 256,
     lr: float = 1e-4,
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,
     device: Union[str, torch.device] = "cpu",
     lambda_lap: float = 0.0,
     only_source_domain: bool = False,                 #  training on source domain only - like in the TLDM paper
@@ -539,9 +552,11 @@ def train_ratio_estimator(
             # ---------------- 3. build pseudo targets --------------------
             with torch.no_grad():
                 c_out = domain_classifier(x0).squeeze(-1)          # (B,)
-                ratio_target = (1.0 - c_out) / (c_out + 1e-8)
-                if log_ratio:
+                if classifier_output_with_sigmoid:
+                    ratio_target = (1.0 - c_out) / (c_out + 1e-8)
                     ratio_target = torch.log(ratio_target + 1e-8)
+                else:
+                    ratio_target = -c_out                            # (B,)
 
             # ---------------- 4. forward + loss --------------------------
             ratio_pred = model(x_t, t)                              # (B,)
@@ -586,7 +601,7 @@ def train_ratio_network_with_regularization_like_tldm_paper(
     epochs: int = 10,
     batch_size: int = 256,
     lr: float = 1e-4,
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,  # if True, use sigmoid output
     eta1and2: Tuple[float, float] = (0.1, 0.1),
     device: Union[str, torch.device] = "cpu",
 ):
@@ -643,9 +658,11 @@ def train_ratio_network_with_regularization_like_tldm_paper(
             # —– static‐classifier pseudo‐target
             with torch.no_grad():
                 c_src = domain_classifier(x0_src).squeeze(-1)
-                r_src = (1. - c_src) / (c_src + 1e-8)
-                if log_ratio:
+                if classifier_output_with_sigmoid:
+                    r_src = (1. - c_src) / (c_src + 1e-8)
                     r_src = torch.log(r_src + 1e-8)
+                else:
+                    r_src = -c_src
 
             # —– compute L_ratio
             r_pred_src = model(x_t_src, t_src)
@@ -664,9 +681,11 @@ def train_ratio_network_with_regularization_like_tldm_paper(
                 with torch.no_grad():
                     c_tdep = domain_classifier_t(
                        x_t_tgt, t_tgt).squeeze(-1)
-                    r_tdep = (1. - c_tdep) / (c_tdep + 1e-8)
-                    if log_ratio:
+                    if classifier_output_with_sigmoid:
+                        r_tdep = (1. - c_tdep) / (c_tdep + 1e-8)
                         r_tdep = torch.log(r_tdep + 1e-8)
+                    else:
+                        r_tdep = -c_tdep
 
                 r_pred_tgt = model(x_t_tgt, t_tgt)
                 loss_cycle = mse(r_pred_tgt, r_tdep)
@@ -730,7 +749,7 @@ def build_pseudo_ratio_vector(
     *,
     vocab_size: int,
     batch_size: int = 4_096,            # mini-batch along (B·V) axis
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,
 ) -> torch.Tensor:                      # -> (B, V)
     """
     For every example i and every token v ∈ {0..V-1}, form
@@ -769,9 +788,11 @@ def build_pseudo_ratio_vector(
         if network_type == "classifier":
             # forward through frozen classifier
             p_src = network(seq_mb, t_mb).squeeze(-1)      # (m,)
-            ratio = (1.0 - p_src) / (p_src + eps)                      # q_t / p_t
-            if log_ratio:
+            if classifier_output_with_sigmoid:
+                ratio = (1.0 - p_src) / (p_src + eps)
                 ratio = torch.log(ratio + eps)
+            else:
+                ratio = -p_src                               # (m,)
         elif network_type == "ratio_estimator":
             # forward through frozen ratio estimator
             ratio = network(seq_mb, t_mb)                     # (m,)
@@ -795,7 +816,7 @@ def vector_ratio_training(
     epochs: int = 10,
     batch_size: int = 256,
     lr: float = 1e-4,
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,
     device: Union[str, torch.device] = "cuda",
     lambda_lap: float = 0.0,
     eta_clf_and_ratio: Tuple[float, float] = (1, 0),  # weights fo r classifier estimation and pre-trained ratio net
@@ -869,7 +890,7 @@ def vector_ratio_training(
                     t=t,
                     vocab_size=vocab_size,
                     batch_size=pseudo_mb*8,
-                    log_ratio=log_ratio,
+                    classifier_output_with_sigmoid=classifier_output_with_sigmoid,
                 ).detach()                                  # no grad!
                 loss_clf = mse(pred_vec, ratio_vec)
 
@@ -882,7 +903,7 @@ def vector_ratio_training(
                     t=t,
                     vocab_size=vocab_size,
                     batch_size=pseudo_mb*8,
-                    log_ratio=log_ratio,
+                    classifier_output_with_sigmoid=classifier_output_with_sigmoid,
                 ).detach()                                  # no grad!
                 loss_ratio = mse(pred_vec, ratio_vec)
 
@@ -909,9 +930,10 @@ def vector_ratio_training(
                 loss = loss + lambda_hinge * mask_reg
 
             wandb.log({
-                "Vec-Ratio/clf:{eta_clf} and ratio:{eta_ratio}/loss_clf": loss_clf.item(),
-                "Vec-Ratio/clf:{eta_clf} and ratio:{eta_ratio}/loss_ratio": loss_ratio.item(),
-                "Vec-Ratio/clf:{eta_clf} and ratio:{eta_ratio}/mask_reg": mask_reg.item() if lambda_hinge > 0.0 else 0.0,
+                "Vec-Ratio/loss": loss.item(),
+                "Vec-Ratio/loss_clf": loss_clf.item(),
+                "Vec-Ratio/loss_ratio": loss_ratio.item(),
+                "Vec-Ratio/mask_regularizer": mask_reg.item() if lambda_hinge > 0.0 else 0.0,
             })
             opt.zero_grad()
             loss.backward()
@@ -946,7 +968,7 @@ def train_ratio_estimator_on_noisy_data_is(
     epochs: int = 10,
     batch_size: int = 256,
     lr: float = 1e-4,
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,
     alpha: Union[float, None] = None,                 # P(x₀ comes from *source*) in the mixture
     device: Union[str, torch.device] = "cpu",
     lambda_lap: float = 0.0,
@@ -1020,12 +1042,12 @@ def train_ratio_estimator_on_noisy_data_is(
             # ---------------- 4. ratio pseudo-target  r̂(x₀) -------------
             with torch.no_grad():
                 c_out = domain_classifier(x0).squeeze(-1)      # P(source|x₀)
-                r_hat  = (1.0 - c_out) / (c_out + eps)         # ≈ q/p
-
-                if log_ratio:
+                if classifier_output_with_sigmoid:
+                    r_hat = (1.0 - c_out) / (c_out + eps)  # ≈ q/p
                     ratio_target = torch.log(r_hat + eps)
                 else:
-                    ratio_target = r_hat
+                    r_hat = -c_out                            # ≈ q/p
+                    ratio_target = r_hat                      # no log here
 
                 # importance weight  ŵ(x₀) = 1 / (α + (1-α)·r̂)
                 w_hat = 1.0 / (alpha + (1.0 - alpha) * r_hat)
@@ -1075,7 +1097,7 @@ def ratio_trained_on_time_dependent_classifier(
     epochs: int = 10,
     batch_size: int = 256,
     lr: float = 1e-4,
-    log_ratio: bool = True,
+    classifier_output_with_sigmoid: bool = False,
     device: Union[str, torch.device] = "cpu",
     lambda_lap: float = 0.0,
     lambda_reconstruction: float = 0.0,               # ★ NEW: weight for reconstruction loss
@@ -1136,9 +1158,11 @@ def ratio_trained_on_time_dependent_classifier(
             # 2) guidance pseudo-target from d_ω(x_t , t)
             with torch.no_grad():
                 p_src_t = domain_classifier_t(x_t, t).squeeze(-1)
-                guide_ratio = (1.0 - p_src_t) / (p_src_t + eps)
-                if log_ratio:
+                if classifier_output_with_sigmoid:
+                    guide_ratio = (1.0 - p_src_t) / (p_src_t + eps)
                     guide_ratio = torch.log(guide_ratio + eps)
+                else:
+                    guide_ratio = -p_src_t                      # (B,)
 
             # 3) ★ NEW: reconstruction pseudo-target via denoise → d_ω(x₀)
             if lambda_reconstruction > 0.0:
@@ -1148,18 +1172,21 @@ def ratio_trained_on_time_dependent_classifier(
                     if x_hat0.dtype == torch.float:          # logits → hard tokens
                         x_hat0 = x_hat0.argmax(-1)           # (B, L)
                     p_src_hat = domain_classifier(x_hat0).squeeze(-1)
-                    reconstruction_ratio = (1.0 - p_src_hat) / (p_src_hat + eps)
-                    if log_ratio:
+                    if classifier_output_with_sigmoid:
+                        reconstruction_ratio = (1.0 - p_src_hat) / (p_src_hat + eps)
                         reconstruction_ratio = torch.log(reconstruction_ratio + eps)
+                    else:
+                        reconstruction_ratio = -p_src_hat
 
             if lambda_clean_ratio > 0.0:
                 # compute the ratio from the clean classifier
                 with torch.no_grad():
                     c_out = domain_classifier(x0).squeeze(-1)
-                    clean_domain_ratio = (1.0 - c_out) / (c_out + eps)
-                    if log_ratio:
+                    if classifier_output_with_sigmoid:
+                        clean_domain_ratio = (1.0 - c_out) / (c_out + eps)
                         clean_domain_ratio = torch.log(clean_domain_ratio + eps)
-
+                    else:
+                        clean_domain_ratio = -c_out
 
             # 4) forward & losses
             ratio_pred = model(x_t, t).view_as(guide_ratio)   # (B,)

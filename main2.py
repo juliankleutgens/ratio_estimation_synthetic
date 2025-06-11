@@ -19,7 +19,7 @@ import wandb
 # ── editable configuration object ──────────────────────────────────────
 config = types.SimpleNamespace(
     # experiment switches
-    data_type="point_forms",                      # "markov" | "gaussian" | "discrete" | "point_forms"
+    data_type="gaussian",                      # "markov" | "gaussian" | "discrete" | "point_forms"
     unguided_sampling=False,
     skip_ratio_estimator_on_clean_data=True,
     test_run=False,                  # if True, use smaller data and fewer epochs
@@ -28,10 +28,10 @@ config = types.SimpleNamespace(
     seed=100,
 
     # data settings
-    len_seqs=10,
+    len_seqs=20,
     vocab_size=5,
-    number_of_source_samples=10_000,
-    number_of_target_samples=1_000,
+    number_of_source_samples=3000,
+    number_of_target_samples=3000,
 
     # data_type="gaussian",                         ´
     dimension_gaussian=2,
@@ -40,27 +40,27 @@ config = types.SimpleNamespace(
     quantization_step=0.01,
 
     # data_type="point_forms",
-    source_form="2spirals",       # "swissroll" | "2spirals" | "circles" | "moons" | "pinwheel" | "checkerboard" | "8gaussians"
-    target_form="swissroll",      # "swissroll" | "2spirals" | "circles" | "moons" | "pinwheel" | "checkerboard" | "8gaussians"
+    source_form="moons",       # "swissroll" | "2spirals" | "circles" | "moons" | "pinwheel" | "checkerboard" | "8gaussians"
+    target_form="2spirals",      # "swissroll" | "2spirals" | "circles" | "moons" | "pinwheel" | "checkerboard" | "8gaussians"
     #grid_size=6,               # grid size for point forms will be overwritten to 6
     #quantization_step=0.04,    # quantization step for point forms will be overwritten to 0.04
 
     # data_type="discrete",
-    source_dist="uniform", # "uniform" | "gaussian" | "x2"
-    target_dist="gaussian", # "uniform" | "gaussian" | "x2"
+    source_dist="gaussian", # "uniform" | "gaussian" | "x2"
+    target_dist="x2", # "uniform" | "gaussian" | "x2"
     distance=0, # distance between source and target distributions
     grid_size_discrete=10,
 
     # data_type="markov",
     type_of_T_matrix="diagonal",  # "random" | "diagonal"
-    extra_target_tokens=1, # if True, add extra token to target sequences
+    extra_target_tokens=0, # if True, add extra token to target sequences
     dirichlet_alpha=4.0,
 
 
     # training
     batch_size=256,
     device=torch.device("mps" if torch.backends.mps.is_available() else "cpu"),
-    train_classifier_epochs=30,
+    train_classifier_epochs=40,
     train_ratio_estimator_epochs=30,
     train_denoiser_epochs=40,
 
@@ -72,7 +72,7 @@ config = types.SimpleNamespace(
     # sampling
     sample_batch_size=512*2,
     sample_gammas=[0,0.5,1,2], # [0.0, .1,.2,.3,.4,.5,0.6,.7,.8,.9, 1.0, 2.0],
-    sample_size= 2048*2,
+    sample_size= 2048,
     denoising_steps=20,
     use_plg=True,
     eta=1.0,   # eta for PLG sampling, only used if `use_plg=True`: log_ratio - self.cfg.eta * torch.log(1 + torch.exp(log_ratio))
@@ -131,7 +131,7 @@ def load_data():
             extra_target_tokens=config.extra_target_tokens,
         )
         config.vocab_size = voc_sz
-        return src, tgt, {"P": P, "Q": Q}
+        return src, tgt, {"S": P, "T": Q}
 
     # ----------------------- gaussian -----------------------
     if config.data_type == "gaussian":
@@ -184,11 +184,11 @@ def evaluate_raw_data(src, tgt, extras):
     """Quick sanity checks / visualisations before training."""
     if config.data_type == "markov":
         P_est = estimate_transition_matrix(src, config.vocab_size)
-        abs_diff, norm, diag_mean, _ = transition_stats(P_est, extras["P"], config)
+        abs_diff, norm, diag_mean, _ = transition_stats(P_est, extras["S"], config)
         if config.type_of_T_matrix == "random":
             P_est_tgt = estimate_transition_matrix(tgt, config.vocab_size)
-            abs_diff_tgt, norm_tgt, diag_mean_tgt,_ = transition_stats(P_est_tgt, extras["Q"], config)
-
+            abs_diff_tgt, norm_tgt, diag_mean_tgt,_ = transition_stats(P_est_tgt, extras["T"], config)
+        abs_diff, norm, diag_mean, _ = transition_stats(P_est, extras["T"], config)
     elif config.data_type == "gaussian" or config.data_type == "point_forms":
         edges = extras["edges"]
         plot_iid_gmm_points(tgt, edges, title=f"Target samples n = {config.number_of_target_samples}")
@@ -229,9 +229,9 @@ def main() -> None:
     # 2 ▸ Domain classifier ----------------------------------------------------
     if not config.skip_ratio_estimator_on_clean_data or not config.unguided_sampling:
         classifier = ClassiferNet(
-                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_classifier=True
+                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_with_sigmoid=False
             )
-
+    
         classifier = train_domain_classifier(
             model=classifier,
             source_data=src,
@@ -249,8 +249,8 @@ def main() -> None:
 
 
         classifier_t = RatioNetAdaLN(
-                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_classifier=True)
-        """
+                vocab_sz=config.vocab_size, seq_len=config.len_seqs, output_with_sigmoid=False)
+
         classifier_t = train_time_dependent_classifier(
             model=classifier_t,
             noise_sched = LogLinearNoise(),
@@ -268,7 +268,7 @@ def main() -> None:
             tgt,
             batch_size=config.batch_size,
             device=config.device,)
-        """
+
 
 
     # --------------------------------------------------------------------------
@@ -296,15 +296,15 @@ def main() -> None:
     # 4 ▸ Ratio estimator (noisy) ---------------------------------------------
     if not config.unguided_sampling:
         ratios_epochs_dict = {
-            "ratio scaler only on src": 1,
+            "ratio scaler only on src": 30,
             "ratio scaler guided src and tgt": 30,
-            "ratio scaler on t-classifier": 1,
-            "ratio scaler on t-classifier + clean": 1,
-            "ratio scaler like TLDM": 1,
-            "ratio vector on t-classifier": 1,
-            "ratio vector on (t-classifier + clean)": 1,
-            "ratio vector on pre-trained nrm ratio": 1,
-            "ratio vector on pre-trained ratio + t-clas": 1,
+            "ratio scaler on t-classifier": 30,
+            "ratio scaler on t-classifier + clean": 30,
+            "ratio scaler like TLDM": 30,
+            "ratio vector on t-classifier": 30,
+            "ratio vector on (t-classifier + clean)": 30,
+            "ratio vector on pre-trained nrm ratio": 30,
+            "ratio vector on pre-trained ratio + t-clas": 30,
         }
 
         # --- ratio estimator on only source domain ---
@@ -403,7 +403,7 @@ def main() -> None:
         t1 = time.time()
 
         ratio_net_guided_vector_clf = RatioNetAdaLNVector(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
-        """
+
         ratio_net_guided_vector_clf = vector_ratio_training(
             model=ratio_net_guided_vector_clf,
             pretrained_ratio_net=ratio_net_guided_only_time_clean,
@@ -422,12 +422,12 @@ def main() -> None:
         )
         t2 = time.time()
         print(f"Time taken to train ratio net vector: {t2-t1:.2f} seconds")
-        """
+
 
         # ------------ ratio estimator in vector ---------------
         t1 = time.time()
         ratio_net_guided_vector_clf_time = RatioNetAdaLNVector(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
-        """
+
         ratio_net_guided_vector_clf_time = vector_ratio_training(
             model=ratio_net_guided_vector_clf_time,
             pretrained_ratio_net=ratio_net_guided_only_time_clean,
@@ -446,12 +446,12 @@ def main() -> None:
         )
         t2 = time.time()
         print(f"Time taken to train ratio net vector: {t2-t1:.2f} seconds")
-        """
+
         # ── save trained ratio networks ──
         # --- ratio estimator in vector ---
         t1 = time.time()
         ratio_net_guided_vector_ratio = RatioNetAdaLNVector(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
-        """
+
         ratio_net_guided_vector_ratio = vector_ratio_training(
             model=ratio_net_guided_vector_ratio,
             pretrained_ratio_net=ratio_net_guided,
@@ -470,14 +470,13 @@ def main() -> None:
         )
         t2 = time.time()
         print(f"Time taken to train ratio net vector: {t2-t1:.2f} seconds")
-        """
+
 
         t1 = time.time()
         ratio_net_guided_vector_both = RatioNetAdaLNVector(vocab_sz=config.vocab_size + 1, seq_len=config.len_seqs)
-        """
         ratio_net_guided_vector_both = vector_ratio_training(
             model=ratio_net_guided_vector_both,
-            pretrained_ratio_net=ratio_net_guided,
+            pretrained_ratio_net=ratio_net_guided_tldm,
             domain_classifier_t=classifier_t,
             source_data=src,
             target_data=tgt,
@@ -493,7 +492,7 @@ def main() -> None:
         )
         t2 = time.time()
         print(f"Time taken to train ratio net vector: {t2-t1:.2f} seconds")
-        """
+
 
         ratios_dict = {
             "ratio scaler only on src": ratio_net_guided_only_on_source,
@@ -533,12 +532,12 @@ def main() -> None:
     cfg.T_sampling = config.denoising_steps
     cfg.stochastic_sampling_jitter_mask = config.stochastic_sampling_jitter_mask
     cfg.stochastic_sampling_eps_noise = config.stochastic_sampling_eps_noise
+    cfg.use_plg = False
+    type = "LRG"
+    cfg.k_best_sampling = -1
     gamma = 1
     gamma_0_done = False
-    for use_plg_ in [False, True]:
-        cfg.use_plg = use_plg_
-        type = "PLG" if use_plg_ else "LRG"
-        for ratio_net_name, ratio_net in ratios_dict.items():
+    for ratio_net_name, ratio_net in ratios_dict.items():
             if ratios_epochs_dict[ratio_net_name] == 1:
                 continue
             ratio_net_name_buffer = ratio_net_name
@@ -549,32 +548,34 @@ def main() -> None:
                 elif gamma == 0:
                     continue
                 cfg.gamma = gamma
-                print(f"\n[Sampling] gamma={gamma}, type={type}, ratio_net={ratio_net_name}")
-                sampler = Diffusion(denoiser_source, ratio_net, cfg).to(config.device)
-                with torch.inference_mode():
-                    sample_trace = sampler.sample_trace(num_samples=8, device=config.device, )
-                print_trace(sample_trace, sample_idx=0, vocab_size=config.vocab_size + 1, mask_idx=config.vocab_size)
+                for kk in [-1]:#[-1, 200, 100, 50, 20, 10, 5, 3]:
+                    cfg.k_best_sampling = kk
+                    #type = f"k={kk}"
+                    print(f"\n[Sampling] gamma={gamma}, type={type}, ratio_net={ratio_net_name}")
+                    sampler = Diffusion(denoiser_source, ratio_net, cfg).to(config.device)
+                    with torch.inference_mode():
+                        sample_trace = sampler.sample_trace(num_samples=8, device=config.device, )
+                    #print_trace(sample_trace, sample_idx=0, vocab_size=config.vocab_size + 1, mask_idx=config.vocab_size)
 
-                tic = time.time()
-                samples = sampler.sample(num_of_samples=config.sample_size, device=config.device)
-                dt = time.time() - tic
+                    tic = time.time()
+                    samples = sampler.sample(num_of_samples=config.sample_size, device=config.device)
+                    dt = time.time() - tic
 
-                # ── evaluation / visualisation ──
-                if config.data_type == "markov":
-                    print(f"Sampled sequences (γ={gamma}), type={type}, ratio_net={ratio_net_name}")
-                    P_est = estimate_transition_matrix(samples.cpu(), config.vocab_size)
-                    P_true = extras["P"] if gamma == 0 else extras["Q"]
-                    abs_diff, mean_diff, mean_diag, mean_extra = transition_stats(P_est, P_true, config)
-
-
-                elif config.data_type == "gaussian" or config.data_type == "point_forms":
-                    plot_iid_gmm_points(samples.cpu(), extras["edges"], title=f"Generated γ={gamma}, type={type}, {ratio_net_name}")
-                elif config.data_type == "discrete":
-                    plot_sample_counts(samples.cpu(),
-                                       grid_shape=extras["grid_shape"],
-                                       title=f"Generated samples γ={gamma}, type={type}, {ratio_net_name}",
-                                       )
-                ratio_net_name = ratio_net_name_buffer
+                    # ── evaluation / visualisation ──
+                    if config.data_type == "markov":
+                        print(f"Sampled sequences (γ={gamma}), type={type}, ratio_net={ratio_net_name}")
+                        P_est = estimate_transition_matrix(samples.cpu(), config.vocab_size)
+                        P_true = extras["S"] if gamma == 0 else extras["T"]
+                        abs_diff, mean_diff, mean_diag, mean_extra = transition_stats(P_est, extras["S"], config)
+                        abs_diff, mean_diff, mean_diag, mean_extra = transition_stats(P_est, P_true, config)
+                    elif config.data_type == "gaussian" or config.data_type == "point_forms":
+                        plot_iid_gmm_points(samples.cpu(), extras["edges"], title=f"Generated γ={gamma}, type={type}, {ratio_net_name}")
+                    elif config.data_type == "discrete":
+                        plot_sample_counts(samples.cpu(),
+                                           grid_shape=extras["grid_shape"],
+                                           title=f"Generated samples γ={gamma}, type={type}, {ratio_net_name}",
+                                           )
+                    ratio_net_name = ratio_net_name_buffer
 
 if __name__ == "__main__":
     main()

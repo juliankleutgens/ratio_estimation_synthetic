@@ -36,6 +36,39 @@ def _sample_categorical(logits_or_probs: torch.Tensor) -> torch.Tensor:
     return (logits + gumbel).argmax(dim=-1)
 
 
+def joint_sample_two_positions(log1: torch.Tensor,
+                               log2: torch.Tensor,
+                               max_chunk: int = 4096) -> tuple[torch.Tensor, torch.Tensor]:
+    """
+    Jointly sample (x1,x2) for a batch using the log‑probs of
+    position 0 and position 1.
+    log1 , log2 : (B, V)      – logits or log‑probs for the two slots
+    Returns
+    -------
+    x1, x2 : LongTensor (B,)  – drawn coordinate indices
+    """
+    B, V = log1.shape
+    out1 = torch.empty(B,  dtype=torch.long, device=log1.device)
+    out2 = torch.empty_like(out1)
+
+    # process the batch in chunks to avoid allocating (B,V,V) at once
+    for start in range(0, B, max_chunk):
+        end   = min(start + max_chunk, B)
+
+        # log P(i,j)  =  log p1(i) + log p2(j)
+        joint_log = log1[start:end, :, None] + log2[start:end, None, :]  # (b, V, V)
+        joint_log = joint_log.view(end-start, -1)                        # (b, V²)
+
+        # convert to probabilities, draw one index, map back to (i,j)
+        probs = joint_log.softmax(-1)
+        idx   = torch.multinomial(probs, 1).squeeze(1)                  # (b,)
+
+        out1[start:end] = idx // V
+        out2[start:end] = idx %  V
+
+    return out1, out2
+
+
 class DiffusionConfig:
     batch_size: int = 512 * 4
     vocab_size: int
@@ -49,6 +82,7 @@ class DiffusionConfig:
     eta: float = 1  # PLG strength (η)
     stochastic_sampling_jitter_mask: float = 0.0  # jitter mask probability (for absorbing state diffusion)
     stochastic_sampling_eps_noise: float = 0.0  # noise fraction (for uniform diffusion)
+    k_best_sampling: int = 0  # k-best sampling (0 = no k-best sampling)
 
 
 class Diffusion(nn.Module):
@@ -69,6 +103,7 @@ class Diffusion(nn.Module):
         self.batch_size = cfg.batch_size
         self.end_time = cfg.end_time
         self.use_plg = cfg.use_plg
+        self.k_best_sampling = cfg.k_best_sampling if hasattr(cfg, "k_best_sampling") else 0
         self.jitter_mask = cfg.stochastic_sampling_jitter_mask if hasattr(cfg, "stochastic_sampling_jitter_mask") else 0.0
         self.eps_noise = cfg.stochastic_sampling_eps_noise if hasattr(cfg, "stochastic_sampling_eps_noise") else 0.0
         if cfg.mask_idx is None:
@@ -355,9 +390,12 @@ class Diffusion(nn.Module):
         guided_log = q_log + self.cfg.gamma * log_ratio
 
         # --- forbid mask where we already have a real token ---------------
-        # if self.diffusion == "absorbing_state":
-        #    mask_bad = (xt != self.mask_idx)[..., None]  # True if real
-        #    guided_log = guided_log.masked_fill(mask_bad, -1e9)  # ~−∞
+        if self.k_best_sampling > 0:
+            # k-best sampling: keep the top-k tokens at each position
+            k = self.k_best_sampling
+            topk_vals, topk_ids = guided_log.topk(k, dim=-1)
+            masked_log = guided_log.new_full(guided_log.shape, -1e9)  # −∞ elsewhere
+            guided_log = masked_log.scatter(-1, topk_ids, topk_vals)  # keep top‑k only
 
         guided_probs = guided_log.softmax(dim=-1)
         xs = _sample_categorical(guided_probs)

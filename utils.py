@@ -202,6 +202,13 @@ def transition_stats(P_pred: torch.Tensor,
         print_statement += f"mean_diag={mean_diag:.4f}"
     print(print_statement)
 
+
+    # KL Divergence between predicted and true transition matrices
+    P_true = P_true + 1e-10  # avoid log(0)
+    P_pred = P_pred + 1e-10  # avoid log(0)
+    kl_div = F.kl_div(P_pred.log(), P_true, reduction='batchmean')
+    print(f"KL Divergence: {kl_div:.4f}")
+
     return abs_diff, mean_diff, mean_diag, mean_extra
 
 
@@ -269,3 +276,18 @@ def seed_everything(seed: int = 0, deterministic: bool = False) -> None:
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
+def addjust_transition_matrix_size(S, T):
+    """
+    Adjust the size of the transition matrix to include extra target tokens.
+    """
+    if S.shape[0] == T.shape[0]:
+        return S, T
+    if S.shape[0] < T.shape[0]:
+        S_zeros = torch.zeros_like(T)
+        S_zeros[:S.shape[0], :S.shape[0]] = S
+        return S_zeros, T
+    elif S.shape[0] > T.shape[0]:
+        T_zeros = torch.zeros_like(S)
+        T_zeros[:T.shape[0], :T.shape[0]] = T
+        return S, T_zeros
+    return S, T

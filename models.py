@@ -97,12 +97,12 @@ class RatioNetAdaLN(nn.Module):
         d: int = 256,
         heads: int = 4,
         layers: int = 2,
-        output_classifier: bool = False,
+        output_with_sigmoid: bool = False,
         dropout: float = 0.1,
         out_dim: int = 1,
     ):
         super().__init__()
-        self.output_classifier = output_classifier
+        self.output_with_sigmoid = output_with_sigmoid
 
         # Token & positional embeddings
         self.emb = nn.Embedding(vocab_sz, d)
@@ -136,7 +136,7 @@ class RatioNetAdaLN(nn.Module):
         g = x.mean(dim=1)             # [B, d]
         out = self.fc(g)              # [B, 1]
 
-        if self.output_classifier:
+        if self.output_with_sigmoid:
             return torch.sigmoid(out).squeeze(-1)
         return out.squeeze(-1)
 
@@ -203,7 +203,7 @@ class ClassiferNet(nn.Module):
         heads: int = 4,
         layers: int = 2,
         dropout: float = 0.1,          # NEW
-        output_classifier: bool = False,
+        output_with_sigmoid: bool = False,
     ):
         super().__init__()
         self.emb  = nn.Embedding(vocab_sz, d)
@@ -215,7 +215,7 @@ class ClassiferNet(nn.Module):
 
         self.drop  = nn.Dropout(dropout)                        # NEW
         self.fc    = nn.Linear(d, 1)
-        self.output_classifier = output_classifier
+        self.output_with_sigmoid = output_with_sigmoid
 
     # ---------------------------------------------------------
     def forward(self, seq: torch.Tensor) -> torch.Tensor:
@@ -230,7 +230,7 @@ class ClassiferNet(nn.Module):
         g = self.drop(g)                        # NEW – sequence-level dropout
 
         out = self.fc(g)                        # (B, 1)
-        return torch.sigmoid(out) if self.output_classifier else out.squeeze(-1)
+        return torch.sigmoid(out) if self.output_with_sigmoid else out
 
     # Convenience wrapper (unchanged) -------------------------
     def get_log_ratio(self, seq: torch.Tensor) -> torch.Tensor:
