@@ -86,6 +86,37 @@ def corrupt(
 # ==================================================================================
 def train_domain_classifier(model, source_data, target_data, epochs=10, batch_size=256, lr=1e-4, eps=0.1, device="cpu"
                             ,unbalance_data=False, classifier_output_with_sigmoid=False):
+    """Train a domain classifier ``d_ω(x)``.
+
+    Parameters
+    ----------
+    model : nn.Module
+        Neural network returning a single logit or probability.
+    source_data : torch.Tensor
+        Samples from the source domain labelled as ``1``.
+    target_data : torch.Tensor
+        Samples from the target domain labelled as ``0``.
+    epochs : int, optional
+        Number of training epochs.
+    batch_size : int, optional
+        Mini batch size.
+    lr : float, optional
+        Learning rate for Adam.
+    device : str or torch.device, optional
+        Device used for training.
+    unbalance_data : bool, optional
+        If ``True`` and ``classifier_output_with_sigmoid`` is ``False`` the loss
+        is weighted by ``pos_weight = len(target_data)/len(source_data)`` to
+        compensate class imbalance.
+    classifier_output_with_sigmoid : bool, optional
+        When ``True`` the model output is assumed to already be passed through a
+        sigmoid and ``BCELoss`` is used instead of ``BCEWithLogitsLoss``.
+
+    Returns
+    -------
+    nn.Module
+        The trained classifier moved back to CPU.
+    """
 
     source_labels = torch.ones(source_data.size(0), dtype=torch.float32)
     target_labels = torch.zeros(target_data.size(0), dtype=torch.float32)
@@ -97,7 +128,10 @@ def train_domain_classifier(model, source_data, target_data, epochs=10, batch_si
     if classifier_output_with_sigmoid:
         bce_loss = nn.BCELoss()
     else:
-        bce_loss = nn.BCEWithLogitsLoss()
+        pos_weight = None
+        if unbalance_data:
+            pos_weight = torch.tensor(len(target_data) / len(source_data), device=device)
+        bce_loss = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
     model.to(device)
     model.train()
@@ -139,16 +173,16 @@ def train_time_dependent_classifier(
     unbalance_data: bool = True,  # if True, balance source and target data
     classifier_output_with_sigmoid: bool = False,  # if True, use sigmoid output
 ):
-    """
-    Train a time‐conditioned domain classifier d_ω(x_t, t) on discrete sequences.
+    """Train the time dependent classifier ``d_ω(x_t, t)``.
 
-    For each clean sequence x₀ sampled from source (label=1) or target (label=0),
-    we:
-      1. sample a continuous time t ∼ U(0,1),
-      2. compute σ(t) via the noise schedule,
-      3. corrupt x₀ → x_t with our `corrupt` function,
-      4. predict d_ω(x_t, t),
-      5. optimize binary cross‐entropy against the true domain label.
+    A random time step ``t`` is sampled for each sequence which is then corrupted
+    according to ``diffusion``. The model is optimised with binary
+    cross-entropy to predict whether a noisy sequence originates from the source
+    (label ``1``) or the target (label ``0``).
+
+    When ``unbalance_data`` is ``True`` and logits are used, the positive class
+    is weighted by ``pos_weight = len(target_data)/len(source_data)`` to reduce
+    bias from highly imbalanced datasets.
 
     Returns the trained model on CPU.
     """
@@ -167,7 +201,10 @@ def train_time_dependent_classifier(
     if classifier_output_with_sigmoid:
         bce_loss = nn.BCELoss()
     else:
-        bce_loss = nn.BCEWithLogitsLoss()
+        pos_weight = None
+        if unbalance_data:
+            pos_weight = torch.tensor(len(target_data) / len(source_data), device=device)
+        bce_loss = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
     # 3. training loop
     for epoch in range(1, epochs + 1):
