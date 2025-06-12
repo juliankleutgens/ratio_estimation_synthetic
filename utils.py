@@ -276,10 +276,8 @@ def seed_everything(seed: int = 0, deterministic: bool = False) -> None:
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
-def addjust_transition_matrix_size(S, T):
-    """
-    Adjust the size of the transition matrix to include extra target tokens.
-    """
+def adjust_transition_matrix_size(S, T):
+    """Adjust the size of the transition matrix to include extra target tokens."""
     if S.shape[0] == T.shape[0]:
         return S, T
     if S.shape[0] < T.shape[0]:
