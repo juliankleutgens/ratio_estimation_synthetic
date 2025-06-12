@@ -127,7 +127,7 @@ def load_data():
         tgt_val = torch.stack([sample_markov(config.len_seqs, T)for _ in range(5000)]).to("cpu")
 
         config.vocab_size = vc_sz
-        S, T = addjust_transition_matrix_size(S, T)
+        S, T = adjust_transition_matrix_size(S, T)
         return src, tgt, {"S": S, "T": T, "src_val": src_val, "tgt_val": tgt_val}
 
     # ----------------------- gaussian -----------------------
