@@ -4,6 +4,7 @@ import numpy as np, random
 import torchsummary
 from torchinfo import (
     summary)
+import torch.nn.functional as F
 from typing import Union, Optional, Dict, Tuple
 import math
 import time
@@ -85,6 +86,7 @@ class DiffusionConfig:
     k_best_sampling: int = 0  # k-best sampling (0 = no k-best sampling)
 
 
+
 class Diffusion(nn.Module):
     """Discrete diffusion with ratio‑based guidance.
 
@@ -92,7 +94,7 @@ class Diffusion(nn.Module):
     * `ratio_model` is a `RatioGuidance` wrapper.
     """
 
-    def __init__(self, denoiser: nn.Module, ratio_model: RatioNetAdaLN, cfg: DiffusionConfig):
+    def __init__(self, denoiser: nn.Module, ratio_model: RatioNetAdaLN, cfg: DiffusionConfig, use_approx: bool = False):
         super().__init__()
         self.denoiser = denoiser
         self.ratio_model = ratio_model.eval()
@@ -106,6 +108,7 @@ class Diffusion(nn.Module):
         self.k_best_sampling = cfg.k_best_sampling if hasattr(cfg, "k_best_sampling") else 0
         self.jitter_mask = cfg.stochastic_sampling_jitter_mask if hasattr(cfg, "stochastic_sampling_jitter_mask") else 0.0
         self.eps_noise = cfg.stochastic_sampling_eps_noise if hasattr(cfg, "stochastic_sampling_eps_noise") else 0.0
+        self.use_approx = use_approx
         if cfg.mask_idx is None:
             self.diffusion = "uniform"
         else:
@@ -162,21 +165,69 @@ class Diffusion(nn.Module):
         return post
 
     def _get_ratio(self, xt: torch.LongTensor, t: torch.Tensor) -> torch.Tensor:
-        if self.ratio_model.__class__.__name__ == "RatioNetAdaLNVector":
-            # ratio_model is a RatioNetAdaLNVector
-            log_ratio = self._batched_ratio_vector(xt, t)
-        else:
-            # ratio_model is a RatioNet
-            log_ratio = self._batched_ratio(xt, t)
+        """
+        Return log-ratio scores rψ(xₜ,ℓ,v,t)  ∈ ℝ^{B×L×V}.
 
+        • If cfg.use_approx == True  ➜ first-order Taylor approximation
+          (one network pass, one backward pass, O(B·L) memory).
+        • Otherwise                ➜ exact but expensive enumeration.
+
+        The approximation follows Eq. (8) of the paper:
+            rψ(xₜ[ℓ←v]) ≈ rψ(xₜ) + ⟨∇_{xₜ} rψ(xₜ), e_{ℓ,v} − e_{ℓ,xₜ[ℓ]}⟩
+        """
+        # ------------------------------------------------------------------ #
+        # 1. Fast first-order approximation (one fwd + bwd)                  #
+        # ------------------------------------------------------------------ #
+        if self.use_approx:
+            with torch.enable_grad():  # ← turn grads back on
+                xt_onehot = F.one_hot(xt, self.vocab_size).float()
+                xt_onehot.requires_grad_(True)
+
+                base = self.ratio_model(xt_onehot, t)  # forward pass
+                grad, = torch.autograd.grad(base.sum(), xt_onehot, create_graph=False)
+            # grad  ≜ ∂ rψ / ∂ xₜ           shape: (B,L,V)
+
+            # baseline scores broadcast to token dimension
+            base = base[:, None, None]  # (B,1,1)
+
+            # For each position, substitute current token → build delta
+            idx = xt.unsqueeze(-1)  # (B,L,1)
+            scatter_grad = grad.gather(-1, idx)  # grad at current tokens (B,L,1)
+
+            # rψ(xₜ[ℓ←v]) ≈ base + grad_{ℓ,v} − grad_{ℓ,xℓ}
+            log_ratio = base + grad - scatter_grad  # (B,L,V)
+            # grad - scatter_grad   ↔ their classifier_log_prob_ratio
+            # base + grad - scatter_grad  ↔ their classifier_log_prob
+
+            with torch.no_grad():
+                log_ratio_exact = self._batched_ratio(xt, t)
+            # print a set of diagnostics of how different the two methods are
+            if not torch.allclose(log_ratio, log_ratio_exact, atol=1e-3):
+                wandb.log({"log_ratio_diff": (log_ratio.detach() - log_ratio_exact.detach()).abs().mean().item()})
+                print(f"Warning: log_ratio and log_ratio_ differ significantly: "
+                      f"{(log_ratio - log_ratio_exact).abs().mean().item():.3f} (mean abs diff)")
+            wandb.log({"log_ratio_approx": log_ratio.mean().item(),})
+
+        # ------------------------------------------------------------------ #
+        # 2. Exact enumeration (vector or scalar model)                      #
+        # ------------------------------------------------------------------ #
+        else:
+            if self.ratio_model.__class__.__name__ == "RatioNetAdaLNVector":
+                log_ratio = self._batched_ratio_vector(xt, t)
+            else:
+                log_ratio = self._batched_ratio(xt, t)
+            log_ratio_exact = log_ratio
+
+        # ------------------------------------------------------- #
+        # 3. Diagnostics (unchanged)                              #
+        # ------------------------------------------------------- #
         mask_mean = log_ratio[..., self.mask_idx:self.mask_idx + 1].mean(-1, keepdim=True)
         token_mean = log_ratio[..., :-1].mean(-1, keepdim=True)
-        #print(f"The mean difference between the mask and token log-ratios is {(token_mean - mask_mean).mean()}")
-        #log_ratio[..., self.mask_idx:self.mask_idx + 1] = mask_mean
-        wandb.log({"mask_mean": mask_mean.mean().item(),
-                     "token_mean": token_mean.mean().item(),
-                     "mask_token_diff": (token_mean - mask_mean).mean().item()})
 
+        wandb.log({"mask_mean": mask_mean.mean().item(),
+                   "token_mean": token_mean.mean().item(),
+                   "mask_token_diff": (token_mean - mask_mean).mean().item(),
+                   "log_ratio_model": log_ratio_exact.mean().item()})
         return log_ratio
 
     @torch.no_grad()

@@ -122,23 +122,20 @@ class RatioNetAdaLN(nn.Module):
     # ---------------------------------------------------------------------
     def forward(self, seq: torch.Tensor, t: torch.Tensor):
         """
-        seq : [B, L]  (token indices)
-        t   : [B]     (scalar timestep / noise level)
+        seq : (B, L)  **or**  (B, L, V)
         """
-        x = self.emb(seq) + self.pos  # [B, L, d]
-        c = self.time_emb(t)          # [B, d]
+        if seq.ndim == 3:
+            x = nn.functional.linear(seq.float(), self.emb.weight.T) + self.pos
+        else:
+            x = self.emb(seq) + self.pos
 
-        # Pass through AdaLN Transformer blocks
+        c = self.time_emb(t)
         for layer in self.layers:
-            x = layer(x, c)           # [B, L, d]
+            x = layer(x, c)
 
-        # Global average pooling + final linear
-        g = x.mean(dim=1)             # [B, d]
-        out = self.fc(g)              # [B, 1]
-
-        if self.output_with_sigmoid:
-            return torch.sigmoid(out).squeeze(-1)
-        return out.squeeze(-1)
+        g = x.mean(dim=1)
+        out = self.fc(g)
+        return torch.sigmoid(out).squeeze(-1) if self.output_with_sigmoid else out.squeeze(-1)
 
 # ================================================================
 # 2.  AdaLN Transformer backbone for the denoiser

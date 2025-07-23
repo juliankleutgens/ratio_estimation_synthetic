@@ -20,10 +20,10 @@ config = types.SimpleNamespace(
     data_type="markov",                      # "markov" | "gaussian" | "discrete"
     unguided_sampling=False,
     skip_ratio_estimator_on_clean_data=True,
-    test_run=False,                  # if True, use smaller data and fewer epochs
+    test_run=True,                  # if True, use smaller data and fewer epochs
 
     # -- data_type="markov",
-    extra_target_tokens=-1,  # how many extra tokens to add to the target sequences
+    extra_target_tokens=0,  # how many extra tokens to add to the target sequences
     type_of_T_matrix="diagonal", # "diagonal" | "random"
     dirichlet_alpha=4.0,
 
@@ -67,6 +67,7 @@ config = types.SimpleNamespace(
     sample_size=2048*2,
     denoising_steps=20,
     use_plg=False,
+    use_approx=True,
     output_with_sigmoid=False,  # whether to apply sigmoid to the output of the classifier
 )
 
@@ -227,6 +228,7 @@ def main() -> None:
         config.train_classifier_epochs = 3
         config.train_ratio_estimator_epochs = 3
         config.train_denoiser_epochs = 3
+        config.denoising_steps = 3
     if config.unguided_sampling:
         config.sample_gammas = [0.0]
 
@@ -344,7 +346,7 @@ def main() -> None:
         domain_classifier=classifier,
         domain_classifier_t=classifier_t,
         denoiser_model=denoiser_source,
-        eta1and2=[0.1, 0],
+        eta1and2=(0.1, 0.1),
         source_data=src,
         target_data=tgt,
         noise_sched=LogLinearNoise(),
@@ -399,11 +401,13 @@ def main() -> None:
         "source": Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device),
         "target": Diffusion(denoiser_target, ratio_net_guided, cfg).to(config.device),
         "finetuned": Diffusion(denoiser_finetuned, ratio_net_guided, cfg).to(config.device),
-        "guided": Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device),
+        "guided_approx": Diffusion(denoiser_source, ratio_net_guided, cfg, use_approx=True).to(config.device),
+        #"guided": Diffusion(denoiser_source, ratio_net_guided, cfg).to(config.device),
+
         #"guided_vector": Diffusion(denoiser_source, ratio_net_guided_vector, cfg).to(config.device),
     }
     for type, sampler in sample_dict.items():
-        if type == "guided" or type == "guided_vector":
+        if "guided" in type:
             cfg.gamma = 1.0
         print("")
         print("-" * 50)

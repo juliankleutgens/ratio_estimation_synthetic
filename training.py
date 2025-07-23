@@ -4,7 +4,7 @@ import numpy as np, random
 import torchsummary
 from torchinfo import (
     summary)
-from typing import Union, Optional, Dict, Tuple
+from typing import Union, Optional, Dict, Tuple,  List
 import math
 import time
 from tqdm.auto import tqdm
@@ -623,6 +623,54 @@ def train_ratio_estimator(
 # =====================================================================
 # 8. Train the ratio with the Regularization from the TLDM paper (Pseudo-Code 4 in the Appendix)
 # =====================================================================
+
+def mutate_sparse(
+    xt: torch.Tensor,       # (B,L)   current noisy tokens
+    mask: torch.Tensor,     # (B,L,V) boolean; True = need exact score
+) -> Tuple[torch.Tensor,    # xt_mut  (B',L)  mutated copies
+           List[Tuple[int,int,int]]]:
+    """
+    For every True entry (b,ℓ,v) in `mask`, clone xt[b] and replace
+    position ℓ with vocabulary id v.  Return the stacked clones and
+    the list of their original indices so we can scatter the results
+    back later.
+    """
+    device = xt.device
+    B, L, V = mask.shape
+    where = mask.nonzero(as_tuple=False)              # (B',3)
+    clones: List[torch.Tensor] = []
+    idx_list: List[Tuple[int,int,int]] = []
+
+    for (b, l, v) in where.tolist():
+        x_clone = xt[b].clone()
+        x_clone[l] = v
+        clones.append(x_clone)
+        idx_list.append((b, l, v))
+
+    if len(clones) == 0:
+        return torch.empty(0, L, dtype=xt.dtype, device=device), idx_list
+
+    xt_mut = torch.stack(clones, dim=0).to(device)    # (B',L)
+    return xt_mut, idx_list
+
+
+@torch.no_grad()
+def _batched_ratio(
+    xt_mut: torch.Tensor,        # (B',L)
+    t_mut: torch.Tensor,         # (B',)   same dtype/device as training t
+    ratio_model: nn.Module,      # your *exact* ratio net
+    vocab_size: int,
+) -> torch.Tensor:              # (B',)
+    """
+    Forward pass of the exact ratio model on a batch of mutated
+    sequences.  Converts ints→one-hot automatically.
+    """
+    if xt_mut.numel() == 0:          # early-out when nothing selected
+        return torch.zeros(0, device=xt_mut.device)
+
+    one_hot = F.one_hot(xt_mut, vocab_size).float()   # (B',L,V)
+    return ratio_model(one_hot, t_mut)                # (B',)
+
 def train_ratio_network_with_regularization_like_tldm_paper(
     model: nn.Module,
     domain_classifier: nn.Module,
@@ -706,15 +754,15 @@ def train_ratio_network_with_regularization_like_tldm_paper(
             loss_ratio = mse(r_pred_src, r_src)
 
             # —– cycle loss on target
-            if use_cycle:
-                B_tgt = x0_tgt.size(0)
-                t_tgt = torch.rand(B_tgt, device=device)  # U(0,1)
-                sigma_tgt, _ = noise_sched(t_tgt)
-                x_t_tgt, _ = corrupt(x0_tgt, sigma_tgt,
-                                     diffusion=diffusion,
-                                     mask_idx=mask_idx,
-                                     vocab_size=vocab_size)
+            B_tgt = x0_tgt.size(0)
+            t_tgt = torch.rand(B_tgt, device=device)  # U(0,1)
+            sigma_tgt, _ = noise_sched(t_tgt)
+            x_t_tgt, _ = corrupt(x0_tgt, sigma_tgt,
+                                 diffusion=diffusion,
+                                 mask_idx=mask_idx,
+                                 vocab_size=vocab_size)
 
+            if use_cycle:
                 with torch.no_grad():
                     c_tdep = domain_classifier_t(
                        x_t_tgt, t_tgt).squeeze(-1)
@@ -730,23 +778,41 @@ def train_ratio_network_with_regularization_like_tldm_paper(
                 loss_cycle = torch.tensor(0., device=device)
 
             # —– consistency regulariser
-            if False:
-                # gradient of log r_ψ
-                x_t_tgt.requires_grad_(True)
-                log_r = torch.log(model(x_t_tgt, t_tgt) + 1e-20).sum()
-                grad_log_r = torch.autograd.grad(log_r, x_t_tgt)[0]
-                x_t_tgt.requires_grad_(False)
+            if use_consistency:
+                with torch.enable_grad():
+                    # enable grads on tokens
+                    xt_onehot = F.one_hot(x_t_tgt, num_classes=vocab_size).float()
+                    xt_onehot.requires_grad_(True)
 
-                # source and target score estimates
-                with torch.no_grad():
-                    s_src = denoiser_model(x_t_src, t_src)
-                    score_src = - s_src / sigma_src.unsqueeze(1)
-                    s_tgt = denoiser_model(x_t_tgt, t_tgt)
-                    score_tgt = - s_tgt / sigma_tgt.unsqueeze(1)
+                    # forward *again* so xt_onehot sits on the graph
+                    r_pred_tgt_lin = model(xt_onehot, t_tgt)  # (B,)
+                    grad, = torch.autograd.grad(r_pred_tgt_lin.sum(),
+                                                xt_onehot,
+                                                create_graph=False)  # (B,L,V)
 
-                # target consistency: ∇log(q_t/p_t) = score_tgt – score_src
-                grad_target = score_tgt - score_src[:score_tgt.size(0)]
-                loss_consistency = mse(grad_log_r, grad_target)
+                base = r_pred_tgt_lin[:, None, None]  # broadcast (B,1,1)
+                lin_pred = base + grad - grad.gather(-1, x_t_tgt.unsqueeze(-1))
+
+                # ---- sparse exact targets ---------------------------------
+                B, L, V = lin_pred.shape
+                sample_rate = 0.02  # 2-5 % gives good trade-off
+                mask = torch.rand_like(lin_pred) < sample_rate  # boolean (B,L,V)
+
+                if mask.any():
+                    # build the mutated sequences only where mask==True
+                    xt_mut, flat_idx = mutate_sparse(x_t_tgt, mask)  # returns (B',L) and indices
+                    exact_vals = _batched_ratio(xt_mut, t_tgt.repeat(len(flat_idx)))  # (B',)
+
+                    exact_sparse = torch.zeros_like(lin_pred)
+                    exact_sparse[mask] = exact_vals
+
+                    # weighted MSE
+                    weight = ((1 - sigma_tgt) / (1 - sigma_tgt.min())).pow(1.0)  # γ=1
+                    loss_consistency = F.mse_loss(lin_pred[mask],
+                                                  exact_sparse[mask],
+                                                  reduction='mean') * weight.mean()
+                else:
+                    loss_consistency = torch.tensor(0., device=device)
             else:
                 loss_consistency = torch.tensor(0., device=device)
 
